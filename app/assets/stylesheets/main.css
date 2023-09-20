@@ -572,7 +572,6 @@ textarea {
   font-size: 44px;
   color: var(--tg-common-color-white);
   font-weight: var(--tg-fw-semi-bold);
-  text-transform: capitalize;
   margin: 0 0 0;
 }
 @media (max-width: 767.98px) {
@@ -619,7 +618,6 @@ textarea {
   color: #B6CFF5;
   line-height: 1.4;
   font-weight: 400;
-  text-transform: capitalize;
 }
 .breadcrumb > * a {
   color: var(--tg-common-color-white);
@@ -748,7 +746,6 @@ textarea {
   line-height: 1.32;
   margin: 0 0;
   letter-spacing: -1px;
-  text-transform: capitalize;
 }
 @media (max-width: 767.98px) {
   .section__title .title {
@@ -1106,7 +1103,6 @@ textarea {
 .tgmenu__navbar-wrap ul li a {
   font-size: 16px;
   font-weight: var(--tg-fw-regular);
-  text-transform: capitalize;
   color: var(--tg-heading-color);
   font-family: var(--tg-heading-font-family);
   padding: 37px 12px;
@@ -1168,7 +1164,6 @@ textarea {
   line-height: 1.4;
   display: block;
   color: var(--tg-heading-color);
-  text-transform: capitalize;
 }
 .tgmenu__navbar-wrap ul li .sub-menu li:hover > a, .tgmenu__navbar-wrap ul li .sub-menu li.active > a {
   color: var(--tg-theme-primary);
@@ -1503,7 +1498,6 @@ textarea {
 .tgmenu__action > ul .header-btn .btn {
   color: var(--tg-common-color-white);
   font-size: 16px;
-  text-transform: capitalize;
   padding: 16px 20px 14px 20px;
 }
 @media (max-width: 1199.98px) {
@@ -1768,7 +1762,6 @@ textarea {
   font-size: 16px;
   font-weight: 500;
   color: var(--tg-heading-color);
-  text-transform: capitalize;
   -webkit-transition: all 500ms ease;
   -o-transition: all 500ms ease;
   transition: all 500ms ease;
@@ -1812,7 +1805,6 @@ textarea {
 .tgmobile__menu .navigation ul li ul li > a {
   font-size: 16px;
   margin-left: 20px;
-  text-transform: capitalize;
 }
 .tgmobile__menu .navigation:last-child {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -2737,7 +2729,6 @@ textarea {
   font-size: 48px;
   margin: 0 0 30px;
   letter-spacing: -1px;
-  text-transform: capitalize;
 }
 @media (max-width: 767.98px) {
   .slider__content .title {
@@ -7093,7 +7084,6 @@ textarea {
   color: var(--tg-common-color-white);
   font-size: 26px;
   margin: 0 0 25px;
-  text-transform: capitalize;
 }
 @media (max-width: 991.98px) {
   .quick__action-content .title br {
@@ -7230,7 +7220,6 @@ textarea {
   color: var(--tg-body-color);
   font-weight: 400;
   font-size: 16px;
-  text-transform: capitalize;
   border-radius: 4px;
   outline: none;
   padding: 12px 37px 9px 20px;
@@ -9427,7 +9416,6 @@ blockquote p {
   }
 }
 .copyright__text p {
-  text-transform: capitalize;
   color: #8798B3;
   font-size: 15px;
   font-family: var(--tg-heading-font-family);

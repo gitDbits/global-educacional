@@ -1,0 +1,10 @@
+pt:
+  routes:
+    home: inicio
+    courses: cursos
+    admin: administracao
+    accounting: contabilidade
+    public_management: gestao-publica
+    pedagogy: pedagogia
+
+    
