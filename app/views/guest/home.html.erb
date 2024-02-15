@@ -215,4 +215,27 @@
   </section>
   <!-- cta-area-end -->
 </main>
-<!-- main-area-end -->
+<div class="modal fade" id="meuModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Evento especial</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <%= link_to portal_event_pt_path(id: 1), data: { turbo: false } do %>
+        <div class="modal-body">
+          <img src="assets/img/logo/logo_evento_formacao_agente_contratacao.jpg" alt="">
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-primary"><i class="fa fa-arrow-right"></i> SAIBA MAIS SOBRE ESTE EVENTO</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var meuModal = new bootstrap.Modal(document.getElementById('meuModal'));
+    meuModal.show();
+  });
+</script>
