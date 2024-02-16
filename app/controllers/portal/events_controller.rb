@@ -36,7 +36,8 @@ module Portal
     end
 
     def checkout
-      @event = Event.find(params[:event_id]) 
+      @event = Event.find(params[:event_id])
+      @states = State.all
     end
 
     def destroy

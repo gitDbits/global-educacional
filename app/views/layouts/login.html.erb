@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta property="og:title" content="Global Educacional">
     <meta property="og:description" content="A Missão da Global Educacional é buscar a formação integral oferencendo uma educação de excelência.">
-    <meta property="og:image" content="https://globaleducacional.com.br/assets/img/logo/logo.png">
+    <meta property="og:image" content="https://globaleducacional.com.br/../../../assets/img/logo/logo.png">
     <meta property="og:url" content="https://globaleducacional.com.br">
     <meta property="og:type" content="website">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="../../../assets/css/tg-cursor.css">
     <link rel="stylesheet" href="../../../assets/css/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
   </head>
   <body>
     <!-- Preloader -->
@@ -96,7 +97,7 @@
                 <nav class="tgmobile__menu-box">
                   <div class="close-btn"><i class="tg-flaticon-close-1"></i></div>
                   <div class="nav-logo">
-                    <a href="index.html"><img src="assets/img/logo/logo.png" alt="Logo"></a>
+                    <a href="index.html"><img src="../../../assets/img/logo/logo.png" alt="Logo"></a>
                   </div>
                   <div class="tgmobile__search tgmenu__action">
                     <ul class="list-wrap">
@@ -136,6 +137,7 @@
         </div>
       </div>
     </header>
+    <!-- header-area-end -->
     <%= yield %>
     <!-- footer-area -->
     <footer class="footer-bg" data-bg-color="var(--tg-common-color-dark)">
@@ -146,7 +148,7 @@
               <div class="footer-widget">
                 <div class="footer__about">
                   <div class="footer__logo logo">
-                    <img src="/assets/img/logo/logo_branca.png" alt="">
+                    <img src="/../../../assets/img/logo/logo_branca.png" alt="">
                   </div>
                   <p>Educação de qualidade nunca foi tão Global</p>
                   <ul class="list-wrap m-0 p-0">
@@ -221,50 +223,6 @@
     <!-- footer-area-end -->
     <!-- JS here -->
     <script src="../../../assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-      $(document).ready(function(){
-        $('#user_cpf').mask('000.000.000-00');
-      });
-    </script>
-    <script>
-      $(document).ready(function(){
-        $('#user_zipcode').mask('00.000-000');
-      });
-    </script>
-    <script>
-      var SPMaskBehavior = function (val) {
-            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-          },
-          spOptions = {
-            onKeyPress: function(val, e, field, options) {
-        field.mask(SPMaskBehavior.apply({}, arguments), options);
-      }
-          };
-
-          $('.sp_celphones').mask(SPMaskBehavior, spOptions);
-    </script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-          $("#user_zipcode").focusout(function(){
-        // Captura o valor do input e remove pontos e hífens
-        var cepFormatado = $(this).val().replace(/\D/g, ''); // Remove qualquer caracter não dígito
-        console.log("CEP digitado formatado: " + cepFormatado); // Imprime o CEP formatado no console
-
-        $.ajax({
-            url: '/cep/' + cepFormatado, // Usa o CEP formatado na URL
-            dataType: 'json',
-            success: function(resposta){
-                $("#user_address").val(resposta.logradouro);
-                $("#user_number_address").focus();
-                $("#user_district").val(resposta.bairro);
-                $("#user_state").val(resposta.uf);
-                $("#user_city").val(resposta.localidade);
-            }
-        });
-          });
-      });
-    </script>
     <script src="../../../assets/js/bootstrap.min.js"></script>
     <script src="../../../assets/js/isotope.pkgd.min.js"></script>
     <script src="../../../assets/js/imagesloaded.pkgd.min.js"></script>

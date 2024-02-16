@@ -11,10 +11,18 @@ module GlobalEducacional
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    I18n.available_locales = %i[en pt]
+    I18n.available_locales = %i[pt]
 
     config.i18n.default_locale = :pt
 
     config.time_zone = 'America/Sao_Paulo'
+
+    # Access-Control-Allow-Origin
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'localhost:3000', /https*:\/\/.*?viacep\.com/
+        resource '*', :headers => :any, :methods => :any
+      end
+    end
   end
 end

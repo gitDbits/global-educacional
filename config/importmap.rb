@@ -21,4 +21,3 @@ pin "tg-cursor.min", to: "tg-cursor.min.js", preload: true
 pin "tween-max.min", to: "tween-max.min.js", preload: true
 pin "vivus.min", to: "vivus.min.js", preload: true
 pin "wow.min", to: "wow.min.js", preload: true
-pin "vendor/jquery-3.6.0.min", to: "vendor/jquery-3.6.0.min.js", preload: true

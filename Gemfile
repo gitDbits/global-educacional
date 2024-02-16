@@ -15,6 +15,9 @@ gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 gem 'route_translator'
+gem 'cpf_cnpj'
+gem 'rack-cors', :require => 'rack/cors'
+gem 'email_address'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

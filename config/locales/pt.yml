@@ -1,1 +1,154 @@
 pt:
+  email_address:
+    address_unknown: "Endereço de e-mail desconhecido"
+    domain_does_not_accept_email: "Este domínio não está configurado para aceitar e-mail"
+    domain_invalid: "Nome de domínio inválido"
+    domain_no_localhost: "localhost não é permitido para seu nome de domínio"
+    domain_unknown: "Nome de domínio não registrado"
+    exceeds_size: "Endereço de e-mail muito longo"
+    incomplete_domain: "Nome de domínio está incompleto"
+    invalid_address: "Inválido, verifique o e-mail informado"
+    invalid_host: "Host/Nome de domínio inválido"
+    invalid_mailbox: "Caixa de correio inválida"
+    ip_address_forbidden: "Endereços IP não são permitidos"
+    ip_address_no_localhost: "Endereços IP de localhost não são permitidos"
+    ipv4_address_invalid: "Este não é um endereço IPv4 válido"
+    ipv6_address_invalid: "Este não é um endereço IPv6 válido"
+    local_size_long: "Nome da caixa de correio muito longo"
+    local_size_short: "Nome da caixa de correio muito curto"
+    local_invalid: "O destinatário não é válido"
+    not_allowed: "Endereço de e-mail não permitido"
+    server_not_available: "O servidor de e-mail remoto não está disponível"
+  
+  errors:
+    messages:
+      invalid: 'é inválido, tente novamente'
+
+  devise:
+    sessions:
+      user:
+        signed_out: 'A sua sessão foi encerrada com sucesso'
+      signed_in: ''
+      title: "Entrar"
+      new_here: "Você é novo aqui? "
+      create_account: "Criar uma conta"
+      login: "Entrar"
+      sign_out: 'Sair'
+      forgot_password: "Esqueceu sua senha?"
+
+    registrations:
+      title: 'Criar uma conta'
+      already_have_account: 'Você já tem uma conta? '
+      create_account: 'Criar conta'
+      update_account: 'Atualizar conta'
+      login: 'Entrar'
+      minimum_required_for_password: 'Use 6 ou mais caracteres com letras maiúsculas, minúsculas, números e símbolos'
+
+    mailer:
+      confirmation_instructions:
+        subject: "Confirmação de cadastro - Meu Doutorzinho Saúde"
+      reset_password_instructions:
+        subject: "Instruções para reiniciar a senha - Meu Doutorzinho Saúde"
+      unlock_instructions:
+        subject: "Desbloquear instruções"
+      email_changed:
+        subject: "E-mail alterado"
+      password_change:
+        subject: "Senha alterada"
+
+    failure:
+      portal_user:
+        already_authenticated: "Você já está logado"
+        inactive: "Sua conta ainda não está ativada."
+        invalid: "%{authentication_keys} ou a senha estão incorretos"
+        locked: "Sua conta está bloqueada."
+        last_attempt: "Você tem mais uma tentativa antes de sua conta ser bloqueada."
+        not_found_in_database: "%{authentication_keys} ou a senha estão incorretos"
+        timeout: "Sua sessão expirou. Por favor entre novamente no sistema para prosseguir."
+        unauthenticated: "Você precisa logar ou se cadastrar antes de prosseguir."
+        unconfirmed: "Você tem que confirmar seu email antes de prosseguir."
+
+    passwords:
+      title: "Informe o seu e-mail de cadastro que enviaremos as instruções"
+      edit_title: "Redefina sua senha"
+      change_my_password: "Mudar minha senha"
+      user:
+        no_token: "Você não pode acessar esta página sem vir de um e-mail de redefinição de senha. Se você vier de um e-mail de redefinição de senha, certifique-se de usar o URL completo fornecido."
+        send_instructions: "Você receberá um e-mail com instruções sobre como redefinir sua senha em alguns minutos."
+        send_paranoid_instructions: "Se o seu endereço de e-mail existir em nosso banco de dados, você receberá um link de recuperação de senha em seu endereço de e-mail em alguns minutos."
+        updated: "Sua senha foi alterada com sucesso. Agora você está conectado."
+        updated_not_active: "Sua senha foi alterada com sucesso."
+
+  activerecord:
+    models:
+      user: 'Usuário'
+    
+    attributes:
+      user:
+        phone: "Celular"
+        name: "Nome Completo"
+        cpf: CPF
+        email: "Email"
+        city: "Cidade"
+        address: "Endereço"
+        number_address: "Número"
+        zipcode: "CEP"
+        district: "Bairro"
+        civil_status: "Estado Civil"
+        password: "Senha"
+        password_confirmation: "Confirmar sua senha"
+        reset_password_token: "Token para alterar senha"
+        reset_password_sent_at: "Envio de recuperação de senha"
+        sign_in_count: "Quantidade de Login"
+        current_sign_in_at: "Sessão de login ativa"
+        last_sign_in_at: "Última sessaõ de login Email"
+        current_sign_in_ip: "IP da sessão ativa"
+        last_sign_in_ip: "IP da última sessão ativa"
+        confirmed_at: "Confirmação da conta"
+        confirmation_sent_at: "Envio da confirmação de conta"
+        unconfirmed_email: "Email não confirmado"
+        failed_attempts: "Tentativas falha de acesso"
+        state: "Estado"
+        complement: "Complemento"
+        created_at: "Criado em"
+        updated_at: "Atualizado em"
+
+    errors:
+      models:
+        user:
+          attributes:
+            phone:
+              blank: 'não informado'
+            email:
+              taken: 'já está em uso'
+              not_found: "informado não cadastrado, verifique as informações."
+            password:
+              blank: "não informada"
+              too_short: "deve conter no mínimo 6(seis) dígitos"
+            password_confirmation:
+              blank: "Confirmar Senha não informada"
+    format: "%{attribute} %{message}"
+    
+    messages:
+      not_saved: 'Não foi possível salvar'
+      accepted: deve ser aceito
+      blank: não pode ficar em branco
+      confirmation: ': As senhas digitadas não coincidem'
+      empty: não pode ficar vazio
+      equal_to: deve ser igual a %{count}
+      even: deve ser par
+      exclusion: não está disponível
+      greater_than: deve ser maior que %{count}
+      greater_than_or_equal_to: deve ser maior ou igual a %{count}
+      inclusion: não está incluído na lista
+      invalid: não é válido
+      less_than: deve ser menor que %{count}
+      less_than_or_equal_to: deve ser menor ou igual a %{count}
+      model_invalid: "A validação falhou: %{errors}"
+      not_a_number: não é um número
+      not_an_integer: não é um número inteiro
+      odd: deve ser ímpar
+      other_than: deve ser diferente de %{count}
+      present: deve ficar em branco
+      required: é obrigatório(a)
+      taken: já está em uso 

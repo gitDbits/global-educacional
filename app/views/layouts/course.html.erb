@@ -69,6 +69,11 @@
                       <li class="menu-item">
                         <%= link_to "<strong>Sobre nós</strong>".html_safe, "#{root_pt_path}#sobre_nos" %>
                       </li>
+                      <li class="menu-item">
+                        <%= link_to portal_event_pt_path(1) do %>
+                          <strong>Eventos</strong>
+                        <% end %>
+                      </li>
                     </ul>
                   </div>
                   <div class="tgmenu__action">

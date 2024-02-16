@@ -18,4 +18,3 @@ import "ajax-form"
 import "wow.min"
 import "aos"
 import "main"
-    

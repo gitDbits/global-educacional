@@ -1,5 +1,8 @@
 pt:
   routes:
+    sign_in: entrar
+    sign_up: cadastrar
+    sign_out: sair
     home: inicio
     courses: cursos
     admin: administracao
@@ -7,5 +10,5 @@ pt:
     public_management: gestao-publica
     pedagogy: pedagogia
     events: eventos
-
+    users: usuarios
     

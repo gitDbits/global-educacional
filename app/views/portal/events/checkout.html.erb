@@ -10,197 +10,191 @@
     <h5 class="mb-3"><%= @event.name %></h5>
   </div>
   <div class="row">
-    <div class="col-md-4 order-md-2 mb-4">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Pagamento</span>
-        <span class="badge badge-secondary badge-pill">3</span>
-      </h4>
-      <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0"><%= @event.name %></h6>
-            <small class="text-muted">Nome do evento</small>
-            <div class="d-block my-3">
-              <div class="custom-control custom-radio">
-                <input id="pix" name="paymentMethod" checked="" type="radio" class="custom-control-input" required="">
-                <label class="custom-control-label" for="pix">PIX</label>
-              </div>
-              <div class="custom-control custom-radio">
-                <input id="credito" name="paymentMethod" type="radio" class="custom-control-input" required="">
-                <label class="custom-control-label" for="credito">Débito em conta</label>
+    <% if flash[:success] || flash[:notice] %>
+      <div class="alert alert-success alert-dismissible fade show animate__animated animate__bounce" role="alert">
+        <div class="alert-body d-flex align-items-center">
+          <i class="fa fa-info-circle"></i>&nbsp;
+          <span><%= flash[:success] || flash[:notice] %></span>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+    <% if flash[:error] %>
+      <div class="alert alert-danger alert-dismissible fade show animate__animated animate__bounce" role="alert">
+        <div class="alert-body d-flex align-items-center">
+          <i class="fa fa-info-circle"></i>&nbsp;
+          <span><%= flash[:error].html_safe %></span>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+  </div>
+  <%= form_with model: User.new, url: portal_users_pt_path, method: :post, data: { turbo: false }, class: '' do |f| %>
+    <%= f.hidden_field :event_id, value: @event.id %>
+    <div class="row">
+      <div class="col-md-4 order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="mb-4">Pagamento</h4>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0"><%= @event.name %></h6>
+              <small class="text-muted">Nome do evento</small>
+              <div class="d-block my-3">
+                <div class="custom-control custom-radio">
+                  <input id="pix" name="payment_method" value="pix" checked="" type="radio" class="custom-control-input" required="">
+                  <label class="custom-control-label" for="PIX">PIX</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input id="debit" name="payment_method" value="Depósito bancário" type="radio" class="custom-control-input" required="">
+                  <label class="custom-control-label" for="debit">Depósito bancário</label>
+                </div>
               </div>
             </div>
-          </div>
-          <span class="text-muted"><%= mask_money(@event.value) %></span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total (BRL)</span>
-          <strong><%= mask_money(@event.value) %></strong>
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Dados pessoais</h4>
-      <form class="needs-validation" novalidate="">
+            <span class="text-muted"><%= mask_money(@event.value) %></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total (BRL)</span>
+            <strong><%= mask_money(@event.value) %></strong>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-8 order-md-1">
+        <h4 class="mb-3">Dados pessoais</h4>
         <div class="row">
           <div class="col-md-12">
-            <form data-turbo="false" action="/portal/usuarios/581.html" accept-charset="UTF-8" method="post"></form>
             <div class="row">
               <div class="col-md-6">
-                <strong><label class="form-label" for="user_name">Nome completo</label></strong>
+                <label class="form-label" for="user_name"><strong>Nome completo</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <i class="mdi mdi-account mdi-18px"></i>
                   </span>
-                  <input class="form-control" placeholder="Informe o seu nome completo" required="required" type="text" name="user[name]" id="user_name">
+                  <%= f.text_field :name, class: 'form-control', placeholder: 'Informe o seu nome completo', required: true, value: params[:name] %>
                 </div>
               </div>
               <div class="col-md-6">
-                <strong><label class="form-label" for="user_email">E-mail</label></strong>
+                <label class="form-label" for="user_name"><strong>E-mail</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <i class="mdi mdi-email-check mdi-18px"></i>
                   </span>
-                  <input class="email form-control" placeholder="Informe o E-mail" type="text" name="user[email]" id="user_email">
+                  <%= f.text_field :email, class: 'email form-control', placeholder: 'Informe o E-mail', value: params[:email] %>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <strong><label class="form-label" for="user_cpf">CPF</label></strong>
+                <label class="form-label" for="user_name"><strong>CPF</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <i class="mdi mdi-barcode mdi-18px"></i>
                   </span>
-                  <input class="cpf form-control" placeholder="Informe o CPF" type="text" name="user[cpf]" id="user_cpf">
+                  <%= f.text_field :cpf, class: 'cpf form-control', placeholder: 'Informe o CPF', value: params[:cpf] %>
                 </div>
               </div>
               <div class="col-md-6">
-                <strong><label class="form-label" for="user_phone">Celular</label></strong>
+                <label class="form-label" for="user_name"><strong>Celular</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <i class="mdi mdi-phone-forward mdi-18px"></i>
                   </span>
-                  <input class="phone form-control" placeholder="Informe o telefone" type="text" name="user[phone]" id="user_phone">
+                  <%= f.text_field :phone, class: "sp_celphones form-control", placeholder: 'Informe o telefone', value: params[:phone] %>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <strong><label class="form-label" for="user_zipcode">Cep</label></strong>
+                <label class="form-label" for="user_name"><strong>Cep</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <i class="mdi mdi-mailbox mdi-18px"></i>
                   </span>
-                  <input class="zipcode form-control" placeholder="Informe o CEP" type="text" name="user[zipcode]" id="user_zipcode">
+                  <%= f.text_field :zipcode, class: 'zipcode form-control', placeholder: 'Informe o CEP', value: params[:zipcode] %>
                 </div>
               </div>
               <div class="col-md-6">
-                <strong><label class="form-label" for="user_address">Endereço</label></strong>
+                <label class="form-label" for="user_name"><strong>Endereço</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <i class="mdi mdi-home-account mdi-18px"></i>
                   </span>
-                  <input class="form-control" placeholder="Av, Rua, Estrada, Etc." type="text" name="user[address]" id="user_address">
+                  <%= f.text_field :address, class: 'form-control', placeholder: 'Av., Rua, Estrada, Etc.', value: params[:address] %>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <strong><label class="form-label" for="user_number_address">Número</label></strong>
+                <label class="form-label" for="user_name"><strong>Número</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <i class="mdi mdi-numeric mdi-18px"></i>
                   </span>
-                  <input class="form-control" placeholder="Informe o número da residência" type="text" name="user[number_address]" id="user_number_address">
+                  <%= f.text_field :number_address, class: 'form-control', placeholder: 'Informe o número da residência', value: params[:number_address] %>
                 </div>
               </div>
               <div class="col-md-6">
-                <strong><label class="form-label" for="user_district">Bairro</label></strong>
+                <label class="form-label" for="user_name"><strong>Bairro</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <i class="mdi mdi-home-group mdi-18px"></i>
                   </span>
-                  <input class="form-control" placeholder="Informe o Bairro ou Distrito" type="text" name="user[district]" id="user_district">
+                  <%= f.text_field :district, class: 'form-control', placeholder: 'Informe o Bairro ou Distrito', value: params[:district] %>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
-                <strong><label class="form-label" for="user_complement">Complemento</label></strong>
+                <label class="form-label" for="user_name"><strong>Complemento</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                   </span>
-                  <input class="form-control" placeholder="Apartamento, Andar, Casa, Sobrado, Etc." type="text" name="user[complement]" id="user_complement">
+                  <%= f.text_field :complement_address, class: 'form-control', placeholder: 'Apartamento, Andar, Casa, Sobrado, Etc.', value: params[:complement_address] %>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <strong><label class="form-label" for="user_state">Estado</label></strong>
+                <label class="form-label" for="user_name"><strong>Estado</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <i class="mdi mdi-map mdi-18px"></i>
                   </span>
-                  <select class="form-select" name="user[state]" id="user_state"><option value="">Selecione uma das alternativas</option>
-                    <option value="AC">ACRE</option>
-                    <option value="AL">ALAGOAS</option>
-                    <option value="AM">AMAPA</option>
-                    <option value="AM">AMAZONAS</option>
-                    <option value="BA">BAHIA</option>
-                    <option value="CE">CEARA</option>
-                    <option value="DF">DISTRITO FEDERAL</option>
-                    <option value="ES">ESPIRITO SANTO</option>
-                    <option value="GO">GOIÁS</option>
-                    <option value="MA">MARANHÃO</option>
-                    <option value="MT">MATO GROSSO</option>
-                    <option value="MS">MATO GROSSO DO SUL</option>
-                    <option value="MG">MINAS GERAIS</option>
-                    <option value="PA">PARA</option>
-                    <option value="PB">PARAIBA</option>
-                    <option value="PR">PARANÁ</option>
-                    <option value="PE">PERNAMBUCO</option>
-                    <option value="PI">PIAUÍ</option>
-                    <option value="RJ">RIO DE JANEIRO</option>
-                    <option value="RN">RIO GRANDE DO NORTE</option>
-                    <option value="RS">RIO GRANDE DO SUL</option>
-                    <option value="RO">RONDONIA</option>
-                    <option value="RR">RORAIMA</option>
-                    <option value="SC">SANTA CATARINA</option>
-                    <option value="SP">SÃO PAULO</option>
-                    <option value="SE">SERGIPE</option>
-                    <option value="TO">TOCANTINS</option></select>
+                  <%= f.collection_select(:state, @states, :abbreviation, :name,
+                                         { include_blank: 'Selecione uma das alternativas' },
+                                         { class: "form-select", required: true, selected: params[:state] }) %>
                 </div>
               </div>
               <div class="col-md-6">
-                <strong><label class="form-label" for="user_city">Cidade</label></strong>
+                <label class="form-label" for="user_name"><strong>Cidade</strong></label>
                 <div class="input-group mb-2">
                   <span class="input-group-text">
                     <i class="mdi mdi-city-variant mdi-18px"></i>
                   </span>
-                  <input class="form-control" placeholder="Informe a Cidade" type="text" name="user[city]" id="user_city">
+                  <%= f.text_field :city, class: 'form-control', placeholder: 'Informe a Cidade', required: true, value: params[:city] %>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-12 text-center mt-2 pt-50">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  FINALIZAR A INSCRIÇÃO
-                </button>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Enviar informações de inscrição</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        Você será direcionado ao nosso Whatsapp para confirmação e finalizar o seu pagamento.
-                      </div>
-                      <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-primary"><i class="fa fa-check-circle"></i> CONFIRMAR A MINHA INSCRIÇÃO</button>
-                      </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-12 text-center mt-2 pt-50">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSubscriptionModal">
+                FINALIZAR A INSCRIÇÃO
+              </button>
+              <div class="modal fade" id="confirmSubscriptionModal" tabindex="-1" aria-labelledby="confirmSubscriptionModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmSubscriptionModalLabel">Enviar informações de inscrição</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Você será direcionado ao nosso Whatsapp para darmos continuidade na sua inscrição.
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                      <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> CONFIRMAR A MINHA INSCRIÇÃO</button>
                     </div>
                   </div>
                 </div>
@@ -208,7 +202,15 @@
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var stateSelect = document.querySelector("#user_state");
+    if(stateSelect) {
+      stateSelect.value = '<%= params[:state] %>';
+    }
+  });
+</script>
