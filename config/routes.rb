@@ -11,14 +11,6 @@ Rails.application.routes.draw do
     get '/cep/:zipcode', to: 'cep#show'
 
     namespace :portal do # rubocop:disable Metrics/BlockLength
-      devise_for :users, controllers: {
-        sessions: 'users/sessions',
-        registrations: 'users/registrations',
-        passwords: 'users/passwords',
-        confirmations: 'users/confirmations',
-        unlocks: 'users/unlocks'
-      }
-
       resources :events do
         get :checkout
       end
