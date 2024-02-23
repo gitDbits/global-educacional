@@ -40,15 +40,54 @@
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div>
               <h6 class="my-0"><%= @event.name %></h6>
-              <small class="text-muted">Nome do evento</small>
+              <small class="text-muted">Francisco Netto</small>
               <div class="d-block my-3">
                 <div class="custom-control custom-radio">
                   <input id="pix" name="payment_method" value="pix" checked="" type="radio" class="custom-control-input" required="">
-                  <label class="custom-control-label" for="PIX">PIX</label>
+                  <label class="custom-control-label" for="pix">PIX</label>
                 </div>
                 <div class="custom-control custom-radio">
                   <input id="debit" name="payment_method" value="Depósito bancário" type="radio" class="custom-control-input" required="">
                   <label class="custom-control-label" for="debit">Depósito bancário</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input id="cash" name="payment_method" value="cash" type="radio" class="custom-control-input" required="">
+                  <label class="custom-control-label" for="cash">Dinheiro a vista</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <label class="custom-control-label d-inline-block" for="credit" data-bs-toggle="modal" data-bs-target="#showTaxCreditCard">
+                    Cartão de Crédito 
+                  </label>
+                  <div class="modal fade" id="showTaxCreditCard" tabindex="-1" aria-labelledby="showTaxCreditCardLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="showTaxCreditCardLabel">Taxas e condições - Cartão de Crédito</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Para o Cartão de Crédito será disponilizado em <strong>até 2 vezes</strong>, com os respectivos valores: <br>
+                          <br>
+                          <div class="custom-control custom-radio">
+                            <input id="credit_1" name="payment_method" value="1x Crédito" type="radio" class="custom-control-input" required="">
+                            <label class="custom-control-label d-inline-block" for="credit_1">
+                              1x: R$ 2.500,00
+                            </label>
+                          </div>
+                          <div class="custom-control custom-radio">
+                            <input id="credit_2" name="payment_method" value="2x Crédito" type="radio" class="custom-control-input" required="">
+                            <label class="custom-control-label d-inline-block" for="credit_2">
+                              2x R$ 1.345,50 - Total parcelado R$ 2.691,00
+                            </label>
+                          </div>
+                          <strong> </strong>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                          <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> CONFIRMAR A MINHA INSCRIÇÃO</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
