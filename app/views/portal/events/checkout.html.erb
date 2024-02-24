@@ -1,3 +1,8 @@
+<style>
+  .is-invalid {
+  border-color: red !important;
+  }
+</style>
 <div class="container">
   <div class="py-5 text-center">
     <div class="logo">
@@ -255,26 +260,28 @@
   });
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const doneSubscriptionBtn = document.getElementById('doneSubscriptionBtn');
-  // Seleciona todos os campos 'input', 'select' e 'textarea' que são obrigatórios, exceto 'complement_address'
-  const inputs = document.querySelectorAll('input[required]:not(#complement_address), select[required], textarea[required]');
+  document.addEventListener("DOMContentLoaded", function() {
+    const doneSubscriptionBtn = document.getElementById('doneSubscriptionBtn');
+    const inputs = document.querySelectorAll('input[required], select[required], textarea[required]:not(#complement_address)');
 
-  function checkFormFields() {
-    let allFilled = true;
+    function checkFormFields() {
+      let allFilled = true;
+      inputs.forEach(function(input) {
+        if (!input.value.trim()) {
+          allFilled = false;
+          input.classList.add('is-invalid');
+        } else {
+          input.classList.remove('is-invalid');
+        }
+      });
+      doneSubscriptionBtn.disabled = !allFilled;
+    }
+
     inputs.forEach(function(input) {
-      if (!input.value) {
-        allFilled = false;
-      }
+      input.addEventListener('change', checkFormFields);
+      input.addEventListener('keyup', checkFormFields);
     });
-    doneSubscriptionBtn.disabled = !allFilled;
-  }
 
-  inputs.forEach(function(input) {
-    input.addEventListener('change', checkFormFields);
-    input.addEventListener('keyup', checkFormFields);
+    checkFormFields();
   });
-
-  checkFormFields();
-});
 </script>
