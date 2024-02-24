@@ -43,21 +43,20 @@
               <small class="text-muted">Francisco Netto</small>
               <div class="d-block my-3">
                 <div class="custom-control custom-radio">
-                  <input id="pix" name="payment_method" value="pix" checked="" type="radio" class="custom-control-input" required="">
+                  <input id="pix" name="payment_method" value="pix" checked="" type="radio" class="custom-control-input">
                   <label class="custom-control-label" for="pix">PIX</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input id="debit" name="payment_method" value="Depósito bancário" type="radio" class="custom-control-input" required="">
+                  <input id="debit" name="payment_method" value="Depósito bancário" type="radio" class="custom-control-input">
                   <label class="custom-control-label" for="debit">Depósito bancário</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input id="cash" name="payment_method" value="cash" type="radio" class="custom-control-input" required="">
+                  <input id="cash" name="payment_method" value="cash" type="radio" class="custom-control-input">
                   <label class="custom-control-label" for="cash">Dinheiro a vista</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <label class="custom-control-label d-inline-block" for="credit" data-bs-toggle="modal" data-bs-target="#showTaxCreditCard">
-                    Cartão de Crédito 
-                  </label>
+                  <input id="credit" name="payment_method" value="credit" type="radio" class="custom-control-input" data-bs-toggle="modal" data-bs-target="#showTaxCreditCard">
+                  <label class="custom-control-label" for="credit">Cartão de Crédito</label>
                   <div class="modal fade" id="showTaxCreditCard" tabindex="-1" aria-labelledby="showTaxCreditCardLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -69,13 +68,11 @@
                           Para o Cartão de Crédito será disponilizado em <strong>até 2 vezes</strong>, com os respectivos valores: <br>
                           <br>
                           <div class="custom-control custom-radio">
-                            <input id="credit_1" name="payment_method" value="1x Crédito" type="radio" class="custom-control-input" required="">
                             <label class="custom-control-label d-inline-block" for="credit_1">
                               1x: R$ 2.500,00
                             </label>
                           </div>
                           <div class="custom-control custom-radio">
-                            <input id="credit_2" name="payment_method" value="2x Crédito" type="radio" class="custom-control-input" required="">
                             <label class="custom-control-label d-inline-block" for="credit_2">
                               2x R$ 1.345,50 - Total parcelado R$ 2.691,00
                             </label>
@@ -83,7 +80,9 @@
                           <strong> </strong>
                         </div>
                         <div class="modal-footer justify-content-center">
-                          <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> CONFIRMAR A MINHA INSCRIÇÃO</button>
+                          <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-check-circle"></i> CONTINUAR COM A MINHA INSCRIÇÃO
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -119,7 +118,7 @@
                   <span class="input-group-text">
                     <i class="mdi mdi-email-check mdi-18px"></i>
                   </span>
-                  <%= f.text_field :email, class: 'email form-control', placeholder: 'Informe o E-mail', value: params[:email] %>
+                  <%= f.text_field :email, class: 'email form-control', placeholder: 'Informe o E-mail', value: params[:email], required: true %>
                 </div>
               </div>
             </div>
@@ -130,7 +129,7 @@
                   <span class="input-group-text">
                     <i class="mdi mdi-barcode mdi-18px"></i>
                   </span>
-                  <%= f.text_field :cpf, class: 'cpf form-control', placeholder: 'Informe o CPF', value: params[:cpf] %>
+                  <%= f.text_field :cpf, class: 'cpf form-control', placeholder: 'Informe o CPF', value: params[:cpf], required: true %>
                 </div>
               </div>
               <div class="col-md-6">
@@ -139,7 +138,7 @@
                   <span class="input-group-text">
                     <i class="mdi mdi-phone-forward mdi-18px"></i>
                   </span>
-                  <%= f.text_field :phone, class: "sp_celphones form-control", placeholder: 'Informe o telefone', value: params[:phone] %>
+                  <%= f.text_field :phone, class: "sp_celphones form-control", placeholder: 'Informe o telefone', value: params[:phone], required: true %>
                 </div>
               </div>
             </div>
@@ -150,7 +149,7 @@
                   <span class="input-group-text">
                     <i class="mdi mdi-mailbox mdi-18px"></i>
                   </span>
-                  <%= f.text_field :zipcode, class: 'zipcode form-control', placeholder: 'Informe o CEP', value: params[:zipcode] %>
+                  <%= f.text_field :zipcode, class: 'zipcode form-control', placeholder: 'Informe o CEP', value: params[:zipcode], required: true %>
                 </div>
               </div>
               <div class="col-md-6">
@@ -159,7 +158,7 @@
                   <span class="input-group-text">
                     <i class="mdi mdi-home-account mdi-18px"></i>
                   </span>
-                  <%= f.text_field :address, class: 'form-control', placeholder: 'Av., Rua, Estrada, Etc.', value: params[:address] %>
+                  <%= f.text_field :address, class: 'form-control', placeholder: 'Av., Rua, Estrada, Etc.', value: params[:address], required: true %>
                 </div>
               </div>
             </div>
@@ -170,7 +169,7 @@
                   <span class="input-group-text">
                     <i class="mdi mdi-numeric mdi-18px"></i>
                   </span>
-                  <%= f.text_field :number_address, class: 'form-control', placeholder: 'Informe o número da residência', value: params[:number_address] %>
+                  <%= f.text_field :number_address, class: 'form-control', placeholder: 'Informe o número da residência', value: params[:number_address], required: true %>
                 </div>
               </div>
               <div class="col-md-6">
@@ -179,7 +178,7 @@
                   <span class="input-group-text">
                     <i class="mdi mdi-home-group mdi-18px"></i>
                   </span>
-                  <%= f.text_field :district, class: 'form-control', placeholder: 'Informe o Bairro ou Distrito', value: params[:district] %>
+                  <%= f.text_field :district, class: 'form-control', placeholder: 'Informe o Bairro ou Distrito', value: params[:district], required: true %>
                 </div>
               </div>
             </div>
@@ -220,7 +219,7 @@
           <div class="row mb-4">
             <div class="col-12 text-center mt-2 pt-50">
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSubscriptionModal">
-                FINALIZAR A INSCRIÇÃO
+                <i class="fa fa-check-circle"></i> FINALIZAR A MINHA INSCRIÇÃO
               </button>
               <div class="modal fade" id="confirmSubscriptionModal" tabindex="-1" aria-labelledby="confirmSubscriptionModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -233,7 +232,9 @@
                       Você será direcionado ao nosso Whatsapp para darmos continuidade na sua inscrição.
                     </div>
                     <div class="modal-footer justify-content-center">
-                      <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> CONFIRMAR A MINHA INSCRIÇÃO</button>
+                      <button type="submit" id="doneSubscriptionBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmSubscriptionModal" disabled>
+                        <i class="fa fa-check-circle"></i> FINALIZAR A MINHA INSCRIÇÃO
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -252,4 +253,28 @@
       stateSelect.value = '<%= params[:state] %>';
     }
   });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const doneSubscriptionBtn = document.getElementById('doneSubscriptionBtn');
+  // Seleciona todos os campos 'input', 'select' e 'textarea' que são obrigatórios, exceto 'complement_address'
+  const inputs = document.querySelectorAll('input[required]:not(#complement_address), select[required], textarea[required]');
+
+  function checkFormFields() {
+    let allFilled = true;
+    inputs.forEach(function(input) {
+      if (!input.value) {
+        allFilled = false;
+      }
+    });
+    doneSubscriptionBtn.disabled = !allFilled;
+  }
+
+  inputs.forEach(function(input) {
+    input.addEventListener('change', checkFormFields);
+    input.addEventListener('keyup', checkFormFields);
+  });
+
+  checkFormFields();
+});
 </script>

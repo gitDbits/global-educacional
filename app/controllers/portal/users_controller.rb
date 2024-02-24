@@ -11,7 +11,7 @@ module Portal
       @event = Event.find(params.dig(:user, :event_id))
 
       if @user.save
-        flash[:notice] = 'Usuário cadastrado com sucesso'
+        flash[:notice] = 'Sua inscrição foi realizada com sucesso, entre em contato pelo nosso  WhatsApp (69) 99272-9043 para finalizar o seu pagamento.'
 
         message_whatsapp = "
           🌟 Olá, realizei a minha inscrição no evento: #{@event.name} 🌟
