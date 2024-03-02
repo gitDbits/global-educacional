@@ -2,6 +2,8 @@
 
 # CepController
 class CepController < ApplicationController
+  skip_before_action :authenticate_user!
+  
   require 'net/http'
 
   def show

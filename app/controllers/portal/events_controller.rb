@@ -3,6 +3,8 @@
 module Portal
   # EventsController
   class EventsController < ApplicationController
+    skip_before_action :authenticate_user!
+    
     layout :resolve_layout
 
     before_action :set_event, only: %i[show]

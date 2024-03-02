@@ -3,6 +3,8 @@
 module Portal
   # UsersController
   class UsersController < ApplicationController
+    skip_before_action :authenticate_user!
+
     def create
       @user = User.new(user_params)
       @user.password = '123456'
@@ -49,7 +51,7 @@ module Portal
     def user_params
       params.require(:user).permit(:name, :email, :cpf, :phone, :zipcode, :address,
                                    :number_address, :district, :complement_address,
-                                   :city, :state, :password, :password_confirmation)
+                                   :city, :state, :password, :password_confirmation, :admin)
     end
   end
 end

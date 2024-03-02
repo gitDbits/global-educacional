@@ -4,6 +4,12 @@ Rails.application.routes.draw do
   localized do # rubocop:disable Metrics/BlockLength
     root 'guest#home'
 
+    devise_for :users, controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations',
+      passwords: 'users/passwords'
+    }
+
     get 'courses/admin'
     get 'courses/accounting'
     get 'courses/public_management'
@@ -11,6 +17,8 @@ Rails.application.routes.draw do
     get '/cep/:zipcode', to: 'cep#show'
 
     namespace :portal do # rubocop:disable Metrics/BlockLength
+      get 'home', to: 'home#home'
+      
       resources :events do
         get :checkout
       end

@@ -57,16 +57,17 @@ pt:
         subject: "Senha alterada"
 
     failure:
-      portal_user:
-        already_authenticated: "Você já está logado"
-        inactive: "Sua conta ainda não está ativada."
-        invalid: "%{authentication_keys} ou a senha estão incorretos"
-        locked: "Sua conta está bloqueada."
-        last_attempt: "Você tem mais uma tentativa antes de sua conta ser bloqueada."
-        not_found_in_database: "%{authentication_keys} ou a senha estão incorretos"
-        timeout: "Sua sessão expirou. Por favor entre novamente no sistema para prosseguir."
-        unauthenticated: "Você precisa logar ou se cadastrar antes de prosseguir."
-        unconfirmed: "Você tem que confirmar seu email antes de prosseguir."
+      not_found: "Não foi possível encontrar o e-mail para o usuário informado"
+      already_authenticated: "Você já está logado"
+      inactive: "Sua conta ainda não está ativada."
+      invalid: "%{authentication_keys} ou a senha estão incorretos"
+      locked: "Sua conta está bloqueada."
+      last_attempt: "Você tem mais uma tentativa antes de sua conta ser bloqueada."
+      not_found_in_database: "%{authentication_keys} ou a senha estão incorretos"
+      timeout: "Sua sessão expirou. Por favor entre novamente no sistema para prosseguir."
+      unauthenticated: "Você precisa logar ou se cadastrar antes de prosseguir."
+      unconfirmed: "Você tem que confirmar seu email antes de prosseguir."
+      not_admin: "Usuário sem permissão de acesso"
 
     passwords:
       title: "Informe o seu e-mail de cadastro que enviaremos as instruções"

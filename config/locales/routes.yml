@@ -11,4 +11,8 @@ pt:
     pedagogy: pedagogia
     events: eventos
     users: usuarios
+    sessions: sessoes
+    registrations: registrar
+    passwords: senhas
+
     
