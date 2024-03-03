@@ -53,7 +53,6 @@ module Portal
       respond_to do |format|
         format.pdf do
           render pdf: "solicitacao-inscricao-#{@user.id}",
-                 show_as_html: params.key?('debug'),
                  margin: { left: 15, right: 15 },
                  footer: { right: '[page]',
                            margin: { bottom: 10 } },
