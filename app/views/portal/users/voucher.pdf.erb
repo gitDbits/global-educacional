@@ -25,8 +25,8 @@
               <p class="card-text mb-1"><strong>Data do Evento:</strong> 3 a 4 de Abril de 2024</p>
               <p class="card-text mb-1"><strong>Facilitador:</strong> Francisco Netto</p>
               <p class="card-text mb-1"><strong>Valor de inscrição:</strong> <%= mask_money(Event.last.value)%></p>
-              <p class="card-text mb-1"><strong>Conteúdo: para maiores detalhes acesse: </strong>
-                <%= link_to 'Clique aqui', portal_event_pt_path(Event.last.id), target: :_blank %>
+              <p class="card-text mb-1"><strong>Conteúdo para maiores detalhes acesse: </strong>
+                <%= link_to 'Clique aqui', portal_event_pt_url(Event.last.id, host: 'https://globaleducacional.com.br'), target: :_blank %>
               </p>
             </div>
           </div>
