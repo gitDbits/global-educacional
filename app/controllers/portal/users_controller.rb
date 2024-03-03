@@ -4,6 +4,7 @@ module Portal
   # UsersController
   class UsersController < ApplicationController
     skip_before_action :authenticate_user!
+    before_action :authenticate_user!, only: [:voucher]
 
     before_action :set_user, only: :voucher
 
