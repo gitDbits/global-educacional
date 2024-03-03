@@ -6,7 +6,8 @@ module Portal
     layout 'admin'
 
     def home
-      @users = User.where(admin: nil)
+      @q = User.where(admin: nil).order(id: :desc).ransack(params[:q])
+      @pagy, @users = pagy(@q.result(distinct: true))
     end
   end
 end

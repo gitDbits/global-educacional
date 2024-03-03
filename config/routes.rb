@@ -18,12 +18,17 @@ Rails.application.routes.draw do
 
     namespace :portal do # rubocop:disable Metrics/BlockLength
       get 'home', to: 'home#home'
-      
+
       resources :events do
         get :checkout
       end
 
-      resources :users, only: :create
+      resources :users, only: :create do
+        get :voucher
+        collection do
+          match 'search_user' => 'home#home', via: %i[get post], as: :search_user
+        end
+      end
     end
   end
 end

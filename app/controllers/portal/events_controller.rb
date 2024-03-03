@@ -4,7 +4,7 @@ module Portal
   # EventsController
   class EventsController < ApplicationController
     skip_before_action :authenticate_user!
-    
+
     layout :resolve_layout
 
     before_action :set_event, only: %i[show]
@@ -18,6 +18,7 @@ module Portal
     end
 
     def create
+      debugger
       if @event.save
         flash[:success] = 'Evento criado com sucesso!'
         redirect_back fallback_location: root_path

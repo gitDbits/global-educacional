@@ -15,15 +15,6 @@
     <h5 class="mb-3"><%= @event.name %></h5>
   </div>
   <div class="row">
-    <% if flash[:success] || flash[:notice] %>
-      <div class="alert alert-success alert-dismissible fade show animate__animated animate__bounce" role="alert">
-        <div class="alert-body d-flex align-items-center">
-          <i class="fa fa-info-circle"></i>&nbsp;
-          <span><%= flash[:success] || flash[:notice] %></span>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <% end %>
     <% if flash[:error] %>
       <div class="alert alert-danger alert-dismissible fade show animate__animated animate__bounce" role="alert">
         <div class="alert-body d-flex align-items-center">

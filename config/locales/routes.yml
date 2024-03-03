@@ -14,5 +14,6 @@ pt:
     sessions: sessoes
     registrations: registrar
     passwords: senhas
+    search_user: buscar_usuario
 
     

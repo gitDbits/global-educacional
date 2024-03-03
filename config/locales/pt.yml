@@ -1,4 +1,10 @@
 pt:
+  payment_method:
+    cash: 'Dinheiro'
+    debit: 'Déposito bancário'
+    credit: 'Cartão de Crédito'
+    pix: 'Pix'
+    
   email_address:
     address_unknown: "Endereço de e-mail desconhecido"
     domain_does_not_accept_email: "Este domínio não está configurado para aceitar e-mail"

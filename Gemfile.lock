@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/activerecord-hackery/ransack.git
+  revision: 4a6f9b93adb860c038b6be0c6d5972cb51ea1e70
+  branch: main
+  specs:
+    ransack (4.1.1)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -68,6 +78,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
+    barby (0.6.9)
     bcrypt (3.1.20)
     bindex (0.8.1)
     bootsnap (1.16.0)
@@ -83,6 +94,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    chunky_png (1.4.0)
     concurrent-ruby (1.2.2)
     cpf_cnpj (0.5.0)
     crass (1.0.6)
@@ -140,6 +152,7 @@ GEM
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pagy (7.0.8)
     pg (1.5.4)
     psych (5.1.0)
       stringio
@@ -181,6 +194,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    ransack_memory (0.0.9)
     rdoc (6.5.0)
       psych (>= 4.0.0)
     regexp_parser (2.8.1)
@@ -193,6 +207,13 @@ GEM
     route_translator (13.0.0)
       actionpack (>= 5.2, < 7.1)
       activesupport (>= 5.2, < 7.1)
+    rqrcode (2.2.0)
+      chunky_png (~> 1.0)
+      rqrcode_core (~> 1.0)
+    rqrcode_core (1.2.0)
+    rqrcode_png (0.1.5)
+      chunky_png
+      rqrcode
     rubyzip (2.3.2)
     selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -236,6 +257,8 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wicked_pdf (2.7.0)
+      activesupport
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.11)
@@ -244,6 +267,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  barby (~> 0.6.2)
   bootsnap
   browser (~> 5.3)
   capybara
@@ -253,11 +277,16 @@ DEPENDENCIES
   email_address
   importmap-rails
   jbuilder
+  pagy (~> 7.0)
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.5)
+  ransack!
+  ransack_memory
   route_translator
+  rqrcode
+  rqrcode_png
   selenium-webdriver
   sprockets-rails
   stimulus-rails
@@ -265,6 +294,7 @@ DEPENDENCIES
   tzinfo-data
   web-console
   webdrivers
+  wicked_pdf
 
 RUBY VERSION
    ruby 3.1.1p18

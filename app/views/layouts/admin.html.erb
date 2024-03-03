@@ -47,7 +47,7 @@
                 <span><i class="ti ti-user fs-6"></i></span>
               </div>
               <div class="john-title">
-                <h6 class="mb-0 fs-4 fw-semibold"><%= current_user.name %></h6>
+                <h6 class="mb-0 fs-4 fw-semibold"><%= current_user.name.split(" ").first %></h6>
                 <span class="fs-2">Administrador</span>
               </div>
               <%= link_to destroy_user_session_path do %>
@@ -117,7 +117,7 @@
                     <div class="text-center">
                       <i class="icon ti ti-users fs-9"></i>
                       <p class="fw-semibold fs-3 text-primary mb-1">Participantes</p>
-                      <h5 class="fw-semibold text-primary mb-0"><%= User.where(admin: true).count %></h5>
+                      <h5 class="fw-semibold text-primary mb-0"><%= User.where(admin: nil).count %></h5>
                     </div>
                   </div>
                 </div>
@@ -126,186 +126,300 @@
             <div class="row">
               <div class="card w-100 position-relative overflow-hidden">
                 <div class="px-4 py-3 border-bottom">
-                  <h5 class="card-title fw-semibold mb-0 lh-sm">Lista de participantes do Evento</h5>
-                </div>
-                <div class="card-body p-4">
-                  <div class="table-responsive mb-4">
-                    <table class="table border text-nowrap mb-0 align-middle">
-                      <thead class="text-dark fs-4">
-                        <tr>
-                          <th>
-                            <h6 class="fs-4 fw-semibold mb-0">Cód Inscrição</h6>
-                          </th>
-                          <th>
-                            <h6 class="fs-4 fw-semibold mb-0">Nome</h6>
-                          </th>
-                          <th>
-                            <h6 class="fs-4 fw-semibold mb-0">Valor</h6>
-                          </th>
-                          <th>
-                            <h6 class="fs-4 fw-semibold mb-0">Forma de pagamento</h6>
-                          </th>
-                          <th>
-                            <h6 class="fs-4 fw-semibold mb-0">Status do pagamento</h6>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% @users.each do |user| %>
-                          <tr>
-                            <td>
-                              <h6 class="fs-4 fw-semibold mb-0"><%= user.id %></h6>
-                            </td>
-                            <td>
-                              <p class="mb-0 fw-normal fs-4"><%= user.name %></p>
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <%= mask_money(Event.last.value)%>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title fw-semibold mb-0 lh-sm">Lista de participantes do Evento</h5>
+                    <div class="d-flex align-items-center">
+                      <%= search_form_for [:portal, @q], url: search_user_portal_users_pt_path, html: { method: :post, data: { turbo: false } } do |f| %>
+                        <div class="input-group">
+                          <%= f.search_field :name_or_cpf_cont, class: 'form-control', placeholder: 'Buscar', value: "#{params.dig(:q, :name_cont)}" %>
+                          <% if params[:q].present? %>
+                            <%= clear_filter title: 'Limpar busca', class: 'btn btn-primary rounded-end', data: { turbo: false } do %>
+                              <i class="mdi mdi-eye-off-outline"></i>
+                            <% end %>
+                          <% else %>
+                            <button class="btn btn-primary rounded-end" type="submit">
+                              <i class="ti ti-search"></i>
+                            </button>
+                          <% end %>
+                        </div>
+                      <% end %>
+                      <button class="btn bg-primary-subtle text-primary px-4 fs-4 ms-2" data-bs-toggle="modal" data-bs-target="#filterUser">
+                        Filtrar
+                      </button>
+                      <div id="filterUser" class="modal fade" tabindex="-1" aria-labelledby="filterUser" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header d-flex align-items-center">
+                              <h4 class="modal-title" id="filterUserLabel">
+                                Selecione um dos filtros abaixo
+                              </h4>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <%= search_form_for [:portal, @q], url: search_user_portal_users_pt_path,
+                                  html: { method: :post, data: { turbo: false } } do |f| %>
+                                <div class="input-group mb-4">
+                                  <span class="input-group-text px-6"><i class="ti ti-barcode fs-6"></i></span>
+                                  <%= f.text_field :cpf_cont, class: 'form-control ps-2 cpf', placeholder: 'Buscar pelo cpf' %>
+                                </div>
+                                <div class="input-group">
+                                  <span class="input-group-text px-6"><i class="ti ti-phone fs-6"></i></span>
+                                  <%= f.text_field :phone_cont, class: 'form-control ps-2 sp_celphones', placeholder: 'Buscar pelo telefone' %>
+                                </div>
+                                <div class="col-12 text-center mt-2 pt-50">
+                                  <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Buscar</button>
+                                  <%= clear_filter title: 'Limpar filtro', class: 'btn bg-danger-subtle text-danger waves-effect' %>
+                                </div>
                               </div>
-                            </td>
-                            <td>
-                              <span class="badge rounded-pill bg-success-subtle text-success fw-semibold fs-2">Forma de pagamento</span>
-                            </td>
-                            <td>
-                              <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold fs-2">Pendente</span>
-                            </td>
-                          </tr>
-                        <% end %>
-                      </tbody>
-                    </table>
+                            </div>
+                          <% end %>
+                          <div class="modal-footer">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <script>
-          function handleColorTheme(e) {
-            $("html").attr("data-color-theme", e);
-            $(e).prop("checked", !0);
-          }
-        </script>
-        <div class="offcanvas customizer offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-          <div class="offcanvas-body h-n80" data-simplebar>
-            <h6 class="fw-semibold fs-4 mb-2">Theme</h6>
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <input type="radio" class="btn-check light-layout" name="theme-layout" id="light-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary rounded-2" for="light-layout">
-                <i class="icon ti ti-brightness-up fs-7 me-2"></i>Light </label>
-              <input type="radio" class="btn-check dark-layout" name="theme-layout" id="dark-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary rounded-2" for="dark-layout">
-                <i class="icon ti ti-moon fs-7 me-2"></i>Dark </label>
-            </div>
-            <h6 class="mt-5 fw-semibold fs-4 mb-2">Theme Direction</h6>
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <input type="radio" class="btn-check" name="direction-l" id="ltr-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="ltr-layout">
-                <i class="icon ti ti-text-direction-ltr fs-7 me-2"></i>LTR </label>
-              <input type="radio" class="btn-check" name="direction-l" id="rtl-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="rtl-layout">
-                <i class="icon ti ti-text-direction-rtl fs-7 me-2"></i>RTL </label>
-            </div>
-            <h6 class="mt-5 fw-semibold fs-4 mb-2">Theme Colors</h6>
-            <div class="d-flex flex-row flex-wrap gap-3 customizer-box color-pallete" role="group">
-              <input type="radio" class="btn-check" name="color-theme-layout" id="Blue_Theme" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Blue_Theme')" for="Blue_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="BLUE_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-1">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
+              <div class="card-body p-4">
+                <div class="table-responsive mb-4">
+                  <table class="table border text-nowrap mb-0 align-middle">
+                    <thead class="text-dark fs-4">
+                      <tr>
+                        <th>
+                          <h6 class="fs-4 fw-semibold mb-0">
+                            <%= sort_link(@q, :id, 'Cód Inscrição', data: { turbo: false })  %>
+                          </h6>
+                        </th>
+                        <th>
+                          <h6 class="fs-4 fw-semibold mb-0">
+                            <%= sort_link(@q, :name, 'Nome', data: { turbo: false })  %>
+                          </h6>
+                        </th>
+                        <th>
+                          <h6 class="fs-4 fw-semibold mb-0">
+                            <%= sort_link(@q, :cpf, 'CPF', data: { turbo: false })  %>
+                          </h6>
+                        </th>
+                        <th>
+                          <h6 class="fs-4 fw-semibold mb-0">
+                            <%= sort_link(@q, :phone, 'Telefone', data: { turbo: false })  %>
+                          </h6>
+                        </th>
+                        <th>
+                          <h6 class="fs-4 fw-semibold mb-0">
+                            <%= sort_link(@q, :payment_method, 'Forma de pagamento', data: { turbo: false })  %>
+                          </h6>
+                        </th>
+                        <th>
+                          <h6 class="fs-4 fw-semibold mb-0">Status do pagamento</h6>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% @users.each do |user| %>
+                        <tr>
+                          <td>
+                            <h6 class="fs-4 fw-semibold mb-0"><%= user.id %></h6>
+                          </td>
+                          <td>
+                            <p class="mb-0 fw-normal fs-4"><%= user.name %></p>
+                          </td>
+                          <td>
+                            <p class="mb-0 fw-normal fs-4"><%= mask_cpf(user.cpf) %></p>
+                          </td>
+                          <td>
+                            <p class="mb-0 fw-normal fs-4"><%= user.phone %></p>
+                          </td>
+                          <td>
+                            <span class="badge rounded-pill bg-success-subtle text-success fw-semibold fs-2"><%= I18n.t("payment_method.#{user.payment_method}") %> <%= mask_money(Event.last.value) %></span>
+                          </td>
+                          <td>
+                            <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold fs-2">Pendente</span>
+                          </td>
+                          <td>
+                            <div class="dropdown dropstart">
+                              <a href="#" class="text-muted" id="dropdownMenuButton<%= user.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ti ti-dots fs-6"></i>
+                              </a>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= user.id %>">
+                                <li>
+                                  <%= link_to portal_user_voucher_pt_path(user, format: :pdf),
+                                        class: 'dropdown-item d-flex align-items-center gap-3',
+                                        data: { turbo: :false } do %>
+                                    <i class="fs-4 ti ti-printer"></i> Comprovante inscrição
+                                  <% end %>
+                                </li>
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                  <div class="mt-4 float-end"><%== pagy_bootstrap_nav(@pagy, link_extra: 'data-turbo="false"') %></div>
                 </div>
-              </label>
-              <input type="radio" class="btn-check" name="color-theme-layout" id="Aqua_Theme" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Aqua_Theme')" for="Aqua_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="AQUA_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-2">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-              <input type="radio" class="btn-check" name="color-theme-layout" id="Purple_Theme" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Purple_Theme')" for="Purple_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PURPLE_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-3">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-              <input type="radio" class="btn-check" name="color-theme-layout" id="green-theme-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Green_Theme')" for="green-theme-layout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="GREEN_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-4">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-              <input type="radio" class="btn-check" name="color-theme-layout" id="cyan-theme-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Cyan_Theme')" for="cyan-theme-layout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CYAN_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-5">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-              <input type="radio" class="btn-check" name="color-theme-layout" id="orange-theme-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Orange_Theme')" for="orange-theme-layout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="ORANGE_THEME">
-                <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-6">
-                  <i class="ti ti-check text-white d-flex icon fs-5"></i>
-                </div>
-              </label>
-            </div>
-            <h6 class="mt-5 fw-semibold fs-4 mb-2">Layout Type</h6>
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <div>
-                <input type="radio" class="btn-check" name="page-layout" id="vertical-layout" autocomplete="off" />
-                <label class="btn p-9 btn-outline-primary" for="vertical-layout">
-                  <i class="icon ti ti-layout-sidebar-right fs-7 me-2"></i>Vertical </label>
               </div>
-              <div>
-                <input type="radio" class="btn-check" name="page-layout" id="horizontal-layout" autocomplete="off" />
-                <label class="btn p-9 btn-outline-primary" for="horizontal-layout">
-                  <i class="icon ti ti-layout-navbar fs-7 me-2"></i>Horizontal </label>
-              </div>
-            </div>
-            <h6 class="mt-5 fw-semibold fs-4 mb-2">Container Option</h6>
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <input type="radio" class="btn-check" name="layout" id="boxed-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="boxed-layout">
-                <i class="icon ti ti-layout-distribute-vertical fs-7 me-2"></i>Boxed </label>
-              <input type="radio" class="btn-check" name="layout" id="full-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="full-layout">
-                <i class="icon ti ti-layout-distribute-horizontal fs-7 me-2"></i>Full </label>
-            </div>
-            <h6 class="fw-semibold fs-4 mb-2 mt-5">Sidebar Type</h6>
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <a href="javascript:void(0)" class="fullsidebar">
-                <input type="radio" class="btn-check" name="sidebar-type" id="full-sidebar" autocomplete="off" />
-                <label class="btn p-9 btn-outline-primary" for="full-sidebar">
-                  <i class="icon ti ti-layout-sidebar-right fs-7 me-2"></i>Full </label>
-              </a>
-              <div>
-                <input type="radio" class="btn-check " name="sidebar-type" id="mini-sidebar" autocomplete="off" />
-                <label class="btn p-9 btn-outline-primary" for="mini-sidebar">
-                  <i class="icon ti ti-layout-sidebar fs-7 me-2"></i>Collapse </label>
-              </div>
-            </div>
-            <h6 class="mt-5 fw-semibold fs-4 mb-2">Card With</h6>
-            <div class="d-flex flex-row gap-3 customizer-box" role="group">
-              <input type="radio" class="btn-check" name="card-layout" id="card-with-border" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="card-with-border">
-                <i class="icon ti ti-border-outer fs-7 me-2"></i>Border </label>
-              <input type="radio" class="btn-check" name="card-layout" id="card-without-border" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary" for="card-without-border">
-                <i class="icon ti ti-border-none fs-7 me-2"></i>Shadow </label>
             </div>
           </div>
         </div>
       </div>
+      <script>
+        function handleColorTheme(e) {
+          $("html").attr("data-color-theme", e);
+          $(e).prop("checked", !0);
+        }
+      </script>
+      <div class="offcanvas customizer offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-body h-n80" data-simplebar>
+          <h6 class="fw-semibold fs-4 mb-2">Theme</h6>
+          <div class="d-flex flex-row gap-3 customizer-box" role="group">
+            <input type="radio" class="btn-check light-layout" name="theme-layout" id="light-layout" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary rounded-2" for="light-layout">
+              <i class="icon ti ti-brightness-up fs-7 me-2"></i>Light </label>
+            <input type="radio" class="btn-check dark-layout" name="theme-layout" id="dark-layout" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary rounded-2" for="dark-layout">
+              <i class="icon ti ti-moon fs-7 me-2"></i>Dark </label>
+          </div>
+          <h6 class="mt-5 fw-semibold fs-4 mb-2">Theme Direction</h6>
+          <div class="d-flex flex-row gap-3 customizer-box" role="group">
+            <input type="radio" class="btn-check" name="direction-l" id="ltr-layout" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary" for="ltr-layout">
+              <i class="icon ti ti-text-direction-ltr fs-7 me-2"></i>LTR </label>
+            <input type="radio" class="btn-check" name="direction-l" id="rtl-layout" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary" for="rtl-layout">
+              <i class="icon ti ti-text-direction-rtl fs-7 me-2"></i>RTL </label>
+          </div>
+          <h6 class="mt-5 fw-semibold fs-4 mb-2">Theme Colors</h6>
+          <div class="d-flex flex-row flex-wrap gap-3 customizer-box color-pallete" role="group">
+            <input type="radio" class="btn-check" name="color-theme-layout" id="Blue_Theme" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Blue_Theme')" for="Blue_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="BLUE_THEME">
+              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-1">
+                <i class="ti ti-check text-white d-flex icon fs-5"></i>
+              </div>
+            </label>
+            <input type="radio" class="btn-check" name="color-theme-layout" id="Aqua_Theme" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Aqua_Theme')" for="Aqua_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="AQUA_THEME">
+              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-2">
+                <i class="ti ti-check text-white d-flex icon fs-5"></i>
+              </div>
+            </label>
+            <input type="radio" class="btn-check" name="color-theme-layout" id="Purple_Theme" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Purple_Theme')" for="Purple_Theme" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PURPLE_THEME">
+              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-3">
+                <i class="ti ti-check text-white d-flex icon fs-5"></i>
+              </div>
+            </label>
+            <input type="radio" class="btn-check" name="color-theme-layout" id="green-theme-layout" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Green_Theme')" for="green-theme-layout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="GREEN_THEME">
+              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-4">
+                <i class="ti ti-check text-white d-flex icon fs-5"></i>
+              </div>
+            </label>
+            <input type="radio" class="btn-check" name="color-theme-layout" id="cyan-theme-layout" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Cyan_Theme')" for="cyan-theme-layout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CYAN_THEME">
+              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-5">
+                <i class="ti ti-check text-white d-flex icon fs-5"></i>
+              </div>
+            </label>
+            <input type="radio" class="btn-check" name="color-theme-layout" id="orange-theme-layout" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center" onclick="handleColorTheme('Orange_Theme')" for="orange-theme-layout" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="ORANGE_THEME">
+              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-6">
+                <i class="ti ti-check text-white d-flex icon fs-5"></i>
+              </div>
+            </label>
+          </div>
+          <h6 class="mt-5 fw-semibold fs-4 mb-2">Layout Type</h6>
+          <div class="d-flex flex-row gap-3 customizer-box" role="group">
+            <div>
+              <input type="radio" class="btn-check" name="page-layout" id="vertical-layout" autocomplete="off" />
+              <label class="btn p-9 btn-outline-primary" for="vertical-layout">
+                <i class="icon ti ti-layout-sidebar-right fs-7 me-2"></i>Vertical </label>
+            </div>
+            <div>
+              <input type="radio" class="btn-check" name="page-layout" id="horizontal-layout" autocomplete="off" />
+              <label class="btn p-9 btn-outline-primary" for="horizontal-layout">
+                <i class="icon ti ti-layout-navbar fs-7 me-2"></i>Horizontal </label>
+            </div>
+          </div>
+          <h6 class="mt-5 fw-semibold fs-4 mb-2">Container Option</h6>
+          <div class="d-flex flex-row gap-3 customizer-box" role="group">
+            <input type="radio" class="btn-check" name="layout" id="boxed-layout" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary" for="boxed-layout">
+              <i class="icon ti ti-layout-distribute-vertical fs-7 me-2"></i>Boxed </label>
+            <input type="radio" class="btn-check" name="layout" id="full-layout" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary" for="full-layout">
+              <i class="icon ti ti-layout-distribute-horizontal fs-7 me-2"></i>Full </label>
+          </div>
+          <h6 class="fw-semibold fs-4 mb-2 mt-5">Sidebar Type</h6>
+          <div class="d-flex flex-row gap-3 customizer-box" role="group">
+            <a href="javascript:void(0)" class="fullsidebar">
+              <input type="radio" class="btn-check" name="sidebar-type" id="full-sidebar" autocomplete="off" />
+              <label class="btn p-9 btn-outline-primary" for="full-sidebar">
+                <i class="icon ti ti-layout-sidebar-right fs-7 me-2"></i>Full </label>
+            </a>
+            <div>
+              <input type="radio" class="btn-check " name="sidebar-type" id="mini-sidebar" autocomplete="off" />
+              <label class="btn p-9 btn-outline-primary" for="mini-sidebar">
+                <i class="icon ti ti-layout-sidebar fs-7 me-2"></i>Collapse </label>
+            </div>
+          </div>
+          <h6 class="mt-5 fw-semibold fs-4 mb-2">Card With</h6>
+          <div class="d-flex flex-row gap-3 customizer-box" role="group">
+            <input type="radio" class="btn-check" name="card-layout" id="card-with-border" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary" for="card-with-border">
+              <i class="icon ti ti-border-outer fs-7 me-2"></i>Border </label>
+            <input type="radio" class="btn-check" name="card-layout" id="card-without-border" autocomplete="off" />
+            <label class="btn p-9 btn-outline-primary" for="card-without-border">
+              <i class="icon ti ti-border-none fs-7 me-2"></i>Shadow </label>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="dark-transparent sidebartoggler"></div>
-    <script src="/admin/assets/js/vendor.min.js"></script>
-    <!-- Import Js Files -->
-    <script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/admin/assets/libs/simplebar/dist/simplebar.min.js"></script>
-    <script src="/admin/assets/js/theme/app.init.js"></script>
-    <script src="/admin/assets/js/theme/theme.js"></script>
-    <script src="/admin/assets/js/theme/app.min.js"></script>
-    <script src="/admin/assets/js/theme/sidebarmenu.js"></script>
-    <!-- solar icons -->
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-    <script src="/admin/assets/libs/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="/admin/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="/admin/assets/js/dashboards/dashboard.js"></script>
-  </body>
+  </div>
+  <div class="dark-transparent sidebartoggler"></div>
+  <script src="/admin/assets/js/vendor.min.js"></script>
+  <!-- Import Js Files -->
+  <script src="/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/admin/assets/libs/simplebar/dist/simplebar.min.js"></script>
+  <script src="/admin/assets/js/theme/app.init.js"></script>
+  <script src="/admin/assets/js/theme/theme.js"></script>
+  <script src="/admin/assets/js/theme/app.min.js"></script>
+  <script src="/admin/assets/js/theme/sidebarmenu.js"></script>
+  <!-- solar icons -->
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script src="/admin/assets/libs/owl.carousel/dist/owl.carousel.min.js"></script>
+  <script src="/admin/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="/admin/assets/js/dashboards/dashboard.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
+          integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
+          crossorigin="anonymous" 
+          referrerpolicy="no-referrer"></script>
+  <script>
+    $(document).ready(function(){
+      $('#q_cpf_cont').mask('000.000.000-00');
+    });
+  </script>
+  <script>
+    var SPMaskBehavior = function (val) {
+          return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        spOptions = {
+          onKeyPress: function(val, e, field, options) {
+      field.mask(SPMaskBehavior.apply({}, arguments), options);
+    }
+        };
+
+        $('.sp_celphones').mask(SPMaskBehavior, spOptions);
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('filterUser');
+      form.addEventListener('submit', function() {
+        var campoCPF = document.querySelector('.cpf');
+        campoCPF.value = campoCPF.value.replace(/\D/g, '');
+      });
+    });
+  </script>
+</body>
 </html>

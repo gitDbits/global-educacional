@@ -5,10 +5,13 @@ module Portal
   class UsersController < ApplicationController
     skip_before_action :authenticate_user!
 
+    before_action :set_user, only: :voucher
+
     def create
       @user = User.new(user_params)
       @user.password = '123456'
       @user.password_confirmation = '123456'
+      @user.payment_method = params[:payment_method]
 
       @event = Event.find(params.dig(:user, :event_id))
 
@@ -46,7 +49,29 @@ module Portal
       end
     end
 
+    def voucher
+      respond_to do |format|
+        format.pdf do
+          render pdf: "solicitacao-inscricao-#{@user.id}",
+                 show_as_html: params.key?('debug'),
+                 margin: { left: 15, right: 15 },
+                 footer: { right: '[page]',
+                           margin: { bottom: 10 } },
+                 locals: { user: @user, qrcode_for_voucher: qrcode_for_voucher(@user) }
+        end
+      end
+    end
+
     private
+
+    def set_user
+      @user = User.find(params[:user_id])
+    end
+
+    def qrcode_for_voucher(user)
+      user = User.find(user.id)
+      generate_qrcode("https://globaleducacional.com.br/portal/usuarios/buscar_usuario?q%5Bcpf_cont%5D=#{user.cpf}")
+    end
 
     def user_params
       params.require(:user).permit(:name, :email, :cpf, :phone, :zipcode, :address,

@@ -38,4 +38,12 @@ class User < ApplicationRecord
       end
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[id name email cpf phone payment_method]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
 end
