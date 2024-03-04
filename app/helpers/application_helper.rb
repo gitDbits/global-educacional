@@ -48,4 +48,16 @@ module ApplicationHelper
       "(#{value[0, 2]}) #{value[2, 4]}-#{value[5, 4]}"
     end
   end
+
+  def full_address(user)
+    zipcode = user.zipcode
+    address = user.address
+    number_address = user.number_address
+    district = user.district
+    city = user.city
+    state = user.state
+    complement = user.complement_address
+
+    "#{zipcode} - #{address}, #{number_address} - #{district} - #{city}/#{state} - #{complement}"
+  end
 end

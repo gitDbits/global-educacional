@@ -4,9 +4,14 @@ module Portal
   # UsersController
   class UsersController < ApplicationController
     skip_before_action :authenticate_user!
-    before_action :authenticate_user!, only: [:voucher]
+    before_action :authenticate_user!, only: %i[show voucher]
 
-    before_action :set_user, only: :voucher
+    before_action :set_user, only: %i[show voucher]
+
+    layout :resolve_layout
+
+    def show
+    end
 
     def create
       @user = User.new(user_params)
@@ -65,12 +70,25 @@ module Portal
     private
 
     def set_user
-      @user = User.find(params[:user_id])
+      @user = if params[:action] == 'show'
+                User.find(params[:id])
+              else
+                @user = User.find(params[:user_id])
+              end
     end
 
     def qrcode_for_voucher(user)
       user = User.find(user.id)
       generate_qrcode("https://globaleducacional.com.br/portal/usuarios/buscar_usuario?q%5Bcpf_cont%5D=#{user.cpf}")
+    end
+
+    def resolve_layout
+      case params[:action]
+      when 'show'
+        'admin_detail'
+      else
+        'admin'
+      end
     end
 
     def user_params
