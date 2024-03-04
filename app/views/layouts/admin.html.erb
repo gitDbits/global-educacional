@@ -127,7 +127,7 @@
               <div class="card w-100 position-relative overflow-hidden">
                 <div class="px-4 py-3 border-bottom">
                   <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="card-title fw-semibold mb-0 lh-sm">Lista de participantes do Evento</h5>
+                    <h5 class="card-title fw-semibold mb-0 lh-sm"><i class="icon ti ti-users fs-9"></i> Lista de participantes do Evento</h5>
                     <div class="d-flex align-items-center">
                       <%= search_form_for [:portal, @q], url: search_user_portal_users_pt_path, html: { method: :post, data: { turbo: false } } do |f| %>
                         <div class="input-group">
@@ -212,7 +212,9 @@
                           </h6>
                         </th>
                         <th>
-                          <h6 class="fs-4 fw-semibold mb-0">Status do pagamento</h6>
+                          <h6 class="fs-4 fw-semibold mb-0">
+                            <%= sort_link(@q, :paid, 'Status do pagamento', data: { turbo: false })  %>
+                          </h6>
                         </th>
                       </tr>
                     </thead>
@@ -223,7 +225,7 @@
                             <h6 class="fs-4 fw-semibold mb-0"><%= user.id %></h6>
                           </td>
                           <td>
-                            <p class="mb-0 fw-normal fs-4"><%= user.name %></p>
+                            <p class="mb-0 fw-normal fs-4"><%= user.name.upcase %></p>
                           </td>
                           <td>
                             <p class="mb-0 fw-normal fs-4"><%= mask_cpf(user.cpf) %></p>
@@ -246,8 +248,9 @@
                                 <li>
                                   <%= link_to portal_user_voucher_pt_path(user, format: :pdf),
                                         class: 'dropdown-item d-flex align-items-center gap-3',
+                                        target: :_blank,
                                         data: { turbo: :false } do %>
-                                    <i class="fs-4 ti ti-printer"></i> Comprovante inscrição
+                                    <i class="fs-4 ti ti-printer"></i> Solicitação de Inscrição
                                   <% end %>
                                 </li>
                               </ul>
