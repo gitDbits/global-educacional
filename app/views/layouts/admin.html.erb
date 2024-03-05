@@ -144,7 +144,7 @@
                         </div>
                       <% end %>
                       <button class="btn bg-primary-subtle text-primary px-4 fs-4 ms-2" data-bs-toggle="modal" data-bs-target="#filterUser">
-                        Filtrar
+                        <i class="ti ti-filter"></i> Filtrar
                       </button>
                       <div id="filterUser" class="modal fade" tabindex="-1" aria-labelledby="filterUser" aria-hidden="true" style="display: none;">
                         <div class="modal-dialog modal-dialog-scrollable modal-lg">
@@ -162,9 +162,13 @@
                                   <span class="input-group-text px-6"><i class="ti ti-barcode fs-6"></i></span>
                                   <%= f.text_field :cpf_cont, class: 'form-control ps-2 cpf', placeholder: 'Buscar pelo cpf' %>
                                 </div>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                   <span class="input-group-text px-6"><i class="ti ti-phone fs-6"></i></span>
                                   <%= f.text_field :phone_cont, class: 'form-control ps-2 sp_celphones', placeholder: 'Buscar pelo telefone' %>
+                                </div>
+                                <div class="input-group mb-4">
+                                  <span class="input-group-text px-6"><i class="ti ti-map fs-6"></i></span>
+                                  <%= f.select :city_eq, @cities, { include_blank: 'Selecione uma cidade...' }, class: 'form-select ps-2' %>
                                 </div>
                                 <div class="col-12 text-center mt-2 pt-50">
                                   <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Buscar</button>
@@ -237,11 +241,11 @@
                             <span class="badge rounded-pill bg-success-subtle text-success fw-semibold fs-2"><%= I18n.t("payment_method.#{user.payment_method}") %> <%= mask_money(Event.last.value) %></span>
                           </td>
                           <td>
-                          <% if user.paid? %>
-                            <span class="badge rounded-pill bg-warning-subtle text-success fw-semibold fs-2">Pago</span>
-                          <% else %>
-                            <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold fs-2">Pendente</span>
-                          <% end %>
+                            <% if user.paid? %>
+                              <span class="badge rounded-pill bg-warning-subtle text-success fw-semibold fs-2">Pago</span>
+                            <% else %>
+                              <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold fs-2">Pendente</span>
+                            <% end %>
                           </td>
                           <td>
                             <div class="dropdown dropstart">
