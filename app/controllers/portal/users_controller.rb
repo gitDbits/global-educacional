@@ -6,11 +6,20 @@ module Portal
     skip_before_action :authenticate_user!
     before_action :authenticate_user!, only: %i[show voucher]
 
-    before_action :set_user, only: %i[show voucher]
+    before_action :set_user, only: %i[show update voucher]
 
     layout :resolve_layout
 
-    def show
+    def show; end
+
+    def update
+      if @user.update(user_params)
+        flash[:success] = 'Os dados foram atualizados com sucesso'
+        redirect_to portal_home_pt_path(cancel_filter: true)
+      else
+        flash[:error] = 'Não foi possível atualizar os dados'
+        render :edit, status: :unprocessable_entity
+      end
     end
 
     def create
@@ -70,7 +79,7 @@ module Portal
     private
 
     def set_user
-      @user = if params[:action] == 'show'
+      @user = if params[:action] == 'show' || params[:action] == 'update'
                 User.find(params[:id])
               else
                 @user = User.find(params[:user_id])
@@ -94,7 +103,8 @@ module Portal
     def user_params
       params.require(:user).permit(:name, :email, :cpf, :phone, :zipcode, :address,
                                    :number_address, :district, :complement_address,
-                                   :city, :state, :password, :password_confirmation, :admin)
+                                   :city, :state, :password, :password_confirmation, :admin,
+                                   :paid, :paid_note, :payment_status)
     end
   end
 end

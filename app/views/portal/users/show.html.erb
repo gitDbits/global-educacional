@@ -69,10 +69,12 @@
             <li class="d-flex align-items-center gap-6 flex-wrap mb-4">
               <i class="ti ti-receipt text-dark fs-6"></i>
               <h6 class="fs-4 fw-semibold mb-0">
-                <% if @user.paid? %>
-                  <span class="badge rounded-pill bg-warning-subtle text-success fw-semibold fs-2">Status do pagamento: Pago</span>
+                <% if @user.payment_status == 'paid' %>
+                  <span class="badge rounded-pill bg-info-subtle text-info fw-semibold fs-2">Status do pagamento: Pago</span>
+                <% elsif @user.payment_status == 'document_paid' %>
+                  <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold fs-2">Status do pagamento: Empenhado</span>
                 <% else %>
-                  <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold fs-2">Status do pagamento: Pendente</span>
+                  <span class="badge rounded-pill bg-danger-subtle text-danger fw-semibold fs-2">Status do pagamento: Pendente</span>
                 <% end %>
               </h6>
             </li>
@@ -84,10 +86,10 @@
                                         class: 'dropdown-item d-flex align-items-center gap-3',
                                         target: :_blank,
                                         data: { turbo: :false } do %>
-            <li class="d-flex align-items-center gap-6 flex-wrap mb-4">
-              <i class="ti ti-printer text-dark fs-6"></i>
-              <h6 class="fs-4 fw-semibold mb-0"> Imprimir solicitação de inscrição</h6>
-            </li>
+              <li class="d-flex align-items-center gap-6 flex-wrap mb-4">
+                <i class="ti ti-printer text-dark fs-6"></i>
+                <h6 class="fs-4 fw-semibold mb-0"> Imprimir solicitação de inscrição</h6>
+              </li>
             <% end %>
           </ul>
         </div>

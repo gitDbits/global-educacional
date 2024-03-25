@@ -23,9 +23,9 @@ Rails.application.routes.draw do
         get :checkout
       end
 
-      resources :users, only: %i[show create] do
-
+      resources :users, only: %i[show create update] do
         get :voucher
+
         collection do
           match 'search_user' => 'home#home', via: %i[get post], as: :search_user
         end

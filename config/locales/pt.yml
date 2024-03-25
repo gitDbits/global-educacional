@@ -119,6 +119,9 @@ pt:
         complement: "Complemento"
         created_at: "Criado em"
         updated_at: "Atualizado em"
+        payment_statuses:
+          paid: 'Pago'
+          document_paid: 'Empenhado'
 
     errors:
       models:
