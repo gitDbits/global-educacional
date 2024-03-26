@@ -50,14 +50,14 @@
                     <td><%= user.phone %></td>
                     <td><%= user.institution.blank? ? 'Não informado' : user.institution %></td>
                     <td><%= city %></td>
-                    <td><%= user.payment_method %></td>
+                    <td><%= I18n.t("payment_method.#{user.payment_method}") %></td>
                     <td>
                       <% if user.payment_status == 'paid' %>
                         <strong><span class="text-success">Pago</span></strong>
                       <% elsif user.payment_status == 'document_paid' %>
                         <strong><span class="text-info">Empenhado</span></strong>
                       <% else %>
-                        <strong><span class="text-success">Pendente</span></strong>
+                        <strong><span class="text-danger">Pendente</span></strong>
                       <% end %>
                     </td>
                   </tr>
