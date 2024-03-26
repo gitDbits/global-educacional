@@ -235,6 +235,11 @@
                             <%= sort_link(@q, :paid, 'Status do pagamento', data: { turbo: false })  %>
                           </h6>
                         </th>
+                        <th>
+                          <h6 class="fs-4 fw-semibold mb-0">
+                            <%= sort_link(@q, :created_at, 'Data inscrição', data: { turbo: false })  %>
+                          </h6>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -244,30 +249,9 @@
                             <h6 class="fs-4 fw-semibold mb-0"><%= user.id %></h6>
                           </td>
                           <td>
-                            <p class="mb-0 fw-normal fs-4"><%= user.name.upcase %></p>
-                          </td>
-                          <td>
-                            <p class="mb-0 fw-normal fs-4"><%= mask_cpf(user.cpf) %></p>
-                          </td>
-                          <td>
-                            <p class="mb-0 fw-normal fs-4"><%= user.phone %></p>
-                          </td>
-                          <td>
-                            <span class="badge rounded-pill bg-success-subtle text-success fw-semibold fs-2"><%= I18n.t("payment_method.#{user.payment_method}") %> <%= mask_money(Event.last.value) %></span>
-                          </td>
-                          <td>
-                            <% if user.payment_status == 'paid' %>
-                              <span class="badge rounded-pill bg-info-subtle text-info fw-semibold fs-2">Pago</span>
-                            <% elsif user.payment_status == 'document_paid' %>
-                              <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold fs-2">Empenhado</span>
-                            <% else %>
-                              <span class="badge rounded-pill bg-danger-subtle text-danger fw-semibold fs-2">Pendente</span>
-                            <% end %>
-                          </td>
-                          <td>
                             <div class="dropdown dropstart">
                               <a href="#" class="text-muted" id="dropdownMenuButton<%= user.id %>" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="ti ti-dots fs-6"></i>
+                                <strong class="text-black"><%= user.name.upcase %>&nbsp;&nbsp;&nbsp;&nbsp;<i class="ti ti-dots fs-6"></i></strong>
                               </a>
                               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= user.id %>">
                                 <li>
@@ -297,6 +281,27 @@
                                 </li>
                               </ul>
                             </div>
+                          </td>
+                          <td>
+                            <p class="mb-0 fw-normal fs-4"><%= mask_cpf(user.cpf) %></p>
+                          </td>
+                          <td>
+                            <p class="mb-0 fw-normal fs-4"><%= user.phone %></p>
+                          </td>
+                          <td>
+                            <span class="badge rounded-pill bg-success-subtle text-success fw-semibold fs-2"><%= I18n.t("payment_method.#{user.payment_method}") %> <%= mask_money(Event.last.value) %></span>
+                          </td>
+                          <td>
+                            <% if user.payment_status == 'paid' %>
+                              <span class="badge rounded-pill bg-info-subtle text-info fw-semibold fs-2">Pago</span>
+                            <% elsif user.payment_status == 'document_paid' %>
+                              <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold fs-2">Empenhado</span>
+                            <% else %>
+                              <span class="badge rounded-pill bg-danger-subtle text-danger fw-semibold fs-2">Pendente</span>
+                            <% end %>
+                          </td>
+                          <td><%= user.created_at.strftime('%d/%m/%Y %H:%M:%S') %></td>
+                          <td>
                             <div id="paidUser<%= user.id %>" class="modal fade" tabindex="-1" aria-labelledby="paidUser<%= user.id %>" aria-hidden="true" style="display: none;">
                               <div class="modal-dialog modal-dialog-scrollable modal-lg">
                                 <div class="modal-content">

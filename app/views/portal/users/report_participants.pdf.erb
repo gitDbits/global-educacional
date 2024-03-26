@@ -38,6 +38,7 @@
                   <th scope="col">CIDADE</th>
                   <th scope="col">FORMA DE PAGAMENTO</th>
                   <th scope="col">STATUS DE PAGAMENTO</th>
+                  <th scope="col">DATA INSCRIÇÃO</th>
                 </tr>
               </thead>
               <tbody style="text-align: center; font-size: 10px;">
@@ -60,6 +61,7 @@
                         <strong><span class="text-danger">Pendente</span></strong>
                       <% end %>
                     </td>
+                    <td><%= user.created_at.strftime('%d/%m/%Y %H:%M:%S') %></td>
                   </tr>
                 <% end %>
               </tbody>
