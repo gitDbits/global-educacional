@@ -45,7 +45,7 @@
                   <tr>
                     <td><strong><%= index + 1 %></strong></td>
                     <td><%= user.id %></td>
-                    <td><%= user.name %></td>
+                    <td><%= user.name.upcase %></td>
                     <td><%= user.email %></td>
                     <td><%= user.phone %></td>
                     <td><%= user.institution.blank? ? 'Não informado' : user.institution %></td>
@@ -64,6 +64,9 @@
                 <% end %>
               </tbody>
             </table>
+            <% unless city == @users_by_city.keys.sort.last %>
+              <div style="page-break-after: always;"></div>
+            <% end %>
           <% end %>
         </div>
       </div>
