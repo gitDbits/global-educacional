@@ -80,6 +80,23 @@ module Portal
       end
     end
 
+    def report_participants
+      @event = Event.first
+      @users_by_city = User.where(admin: nil).group_by(&:city)
+
+      respond_to do |format|
+        format.pdf do
+          render pdf: "lista-participante-#{@event.name}",
+                 margin: { left: 15, right: 15 },
+                 orientation: 'Landscape',
+                 show_as_html: params.key?('debug'),
+                 footer: { right: '[page]',
+                           margin: { bottom: 10 } },
+                 locals: { users: @users }
+        end
+      end
+    end
+
     private
 
     def set_user

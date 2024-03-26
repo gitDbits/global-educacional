@@ -16,5 +16,6 @@ pt:
     registrations: registrar
     passwords: senhas
     search_user: buscar_usuario
+    report_participants: relatorio_participantes
 
     
