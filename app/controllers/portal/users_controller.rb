@@ -82,7 +82,10 @@ module Portal
 
     def report_participants
       @event = Event.first
-      @users_by_city = User.where(admin: nil).group_by(&:city).sort.to_h
+      
+      @users_by_city = User.where(admin: nil).group_by(&:city).transform_values do |users|
+        users.sort_by { |user| user.name }
+      end
 
       respond_to do |format|
         format.pdf do
