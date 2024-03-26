@@ -18,12 +18,12 @@
       </div>
       <div class="row text-center mb-4">
         <strong>Total de participantes</strong>
-        <h6><%= @users_by_city.count %></h6>
+        <h6><%= User.where(admin: nil).count %></h6>
       </div>
       <div class="row mb-2">
         <div class="col-sm-12">
-          <% @users_by_city.each do |city, users| %>
-            <div style="background-color: #D3D3D3; padding: 5px; margin-top: 10px; text-align: center;">
+          <% @users_by_city.sort.each do |city, users| %>
+            <div class="city-header" style="background-color: #D3D3D3; padding: 5px; margin-top: 10px; text-align: center;">
               <strong><%= city.upcase %></strong>
             </div>
             <table class="table table-striped">
@@ -43,7 +43,7 @@
               <tbody style="text-align: center;">
                 <% users.each_with_index do |user, index| %>
                   <tr>
-                    <th scope="row"><%= index + 1 %></th>
+                    <td><strong><%= index + 1 %></strong></td>
                     <td><%= user.id %></td>
                     <td><%= user.name %></td>
                     <td><%= user.email %></td>
@@ -53,11 +53,11 @@
                     <td><%= user.payment_method %></td>
                     <td>
                       <% if user.payment_status == 'paid' %>
-                        <strong><span class="text-info">Pago</span></strong>
+                        <strong><span class="text-success">Pago</span></strong>
                       <% elsif user.payment_status == 'document_paid' %>
-                        <strong><span class="text-warning">Empenhado</span></strong>
+                        <strong><span class="text-info">Empenhado</span></strong>
                       <% else %>
-                        <strong><span class="text-danger">Pendente</span></strong>
+                        <strong><span class="text-success">Pendente</span></strong>
                       <% end %>
                     </td>
                   </tr>
