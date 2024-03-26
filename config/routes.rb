@@ -23,7 +23,7 @@ Rails.application.routes.draw do
         get :checkout
       end
 
-      resources :users, only: %i[show create update] do
+      resources :users, only: %i[show edit create update] do
         get :voucher
 
         collection do

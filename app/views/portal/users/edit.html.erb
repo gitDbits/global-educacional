@@ -1,0 +1,158 @@
+<div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+  <div class="card-body px-4 py-3">
+    <div class="row align-items-center">
+      <div class="col-9">
+        <h4 class="fw-semibold mb-8"><%= @user.name %></h4>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <%= link_to 'Home', portal_home_pt_path, class: 'text-muted text-decoration-none' %>
+            </li>
+            <li class="breadcrumb-item" aria-current="page">Perfil usuário</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-3">
+        <div class="text-center mb-n5">
+          <img src="../assets/images/breadcrumb/ChatBc.png" alt="" class="img-fluid mb-n4">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <%= form_with model: @user, url: portal_user_pt_path(@user), method: :put, data: { turbo: false }, class: '' do |f| %>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <label class="form-label" for="user_name"><strong>Orgão</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-domain mdi-18px"></i>
+            </span>
+            <%= f.collection_select :institution, 
+                                    [['Câmara Municipal', 'Câmara Municipal'], ['Prefeitura', 'Prefeitura']], 
+                                    :last, :first, 
+                                    {include_blank: 'Selecione o órgão'}, 
+                                    {required: true, class: "form-control"} %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="user_name"><strong>Nome completo</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-account mdi-18px"></i>
+            </span>
+            <%= f.text_field :name, class: 'form-control', placeholder: 'Informe o seu nome completo', required: true %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="user_name"><strong>E-mail</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-email-check mdi-18px"></i>
+            </span>
+            <%= f.text_field :email, class: 'email form-control', placeholder: 'Informe o E-mail',  required: true %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label" for="user_name"><strong>CPF</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-barcode mdi-18px"></i>
+            </span>
+            <%= f.text_field :cpf, class: 'cpf form-control', placeholder: 'Informe o CPF', required: true %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="user_name"><strong>Celular</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-phone-forward mdi-18px"></i>
+            </span>
+            <%= f.text_field :phone, class: "sp_celphones form-control", placeholder: 'Informe o telefone', required: true %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label" for="user_name"><strong>Cep</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-mailbox mdi-18px"></i>
+            </span>
+            <%= f.text_field :zipcode, class: 'zipcode form-control', placeholder: 'Informe o CEP', required: true %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="user_name"><strong>Endereço</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-home-account mdi-18px"></i>
+            </span>
+            <%= f.text_field :address, class: 'form-control', placeholder: 'Av., Rua, Estrada, Etc.', required: true %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label" for="user_name"><strong>Número</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-numeric mdi-18px"></i>
+            </span>
+            <%= f.text_field :number_address, class: 'form-control', placeholder: 'Informe o número da residência', required: true %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="user_name"><strong>Bairro</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-home-group mdi-18px"></i>
+            </span>
+            <%= f.text_field :district, class: 'form-control', placeholder: 'Informe o Bairro ou Distrito', required: true %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label class="form-label" for="user_name"><strong>Complemento</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </span>
+            <%= f.text_field :complement_address, class: 'form-control', placeholder: 'Apartamento, Andar, Casa, Sobrado, Etc.' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label" for="user_name"><strong>Estado</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-map mdi-18px"></i>
+            </span>
+            <%= f.collection_select(:state, @states, :abbreviation, :name,
+                                         { include_blank: 'Selecione uma das alternativas' },
+                                         { class: "form-select", required: true, selected: params[:state] }) %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="user_name"><strong>Cidade</strong></label>
+          <div class="input-group mb-2">
+            <span class="input-group-text">
+              <i class="mdi mdi-city-variant mdi-18px"></i>
+            </span>
+            <%= f.text_field :city, class: 'form-control', placeholder: 'Informe a Cidade', required: true %>
+          </div>
+        </div>
+        <hr class="mt-4">
+        <div class="col-12 text-center mt-4 pt-50">
+          <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">SALVAR</button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

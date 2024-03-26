@@ -6,11 +6,15 @@ module Portal
     skip_before_action :authenticate_user!
     before_action :authenticate_user!, only: %i[show voucher]
 
-    before_action :set_user, only: %i[show update voucher]
+    before_action :set_user, only: %i[show edit update voucher]
 
     layout :resolve_layout
 
     def show; end
+
+    def edit
+      @states = State.all
+    end
 
     def update
       if @user.update(user_params)
@@ -79,7 +83,7 @@ module Portal
     private
 
     def set_user
-      @user = if params[:action] == 'show' || params[:action] == 'update'
+      @user = if params[:action] == 'show' || params[:action] == 'update' || params[:action] == 'edit'
                 User.find(params[:id])
               else
                 @user = User.find(params[:user_id])
@@ -95,6 +99,8 @@ module Portal
       case params[:action]
       when 'show'
         'admin_detail'
+      when 'edit'
+        'admin_detail'
       else
         'admin'
       end
@@ -104,7 +110,7 @@ module Portal
       params.require(:user).permit(:name, :email, :cpf, :phone, :zipcode, :address,
                                    :number_address, :district, :complement_address,
                                    :city, :state, :password, :password_confirmation, :admin,
-                                   :paid, :paid_note, :payment_status)
+                                   :paid, :paid_note, :payment_status, :institution)
     end
   end
 end

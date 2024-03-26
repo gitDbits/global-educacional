@@ -1,5 +1,6 @@
 pt:
   routes:
+    edit: editar
     sign_in: entrar
     sign_up: cadastrar
     sign_out: sair

@@ -263,16 +263,23 @@
                                   <% end %>
                                 </li>
                                 <li>
-                                  <%= link_to portal_user_voucher_pt_path(user, format: :pdf),
+                                  <%= link_to edit_portal_user_pt_path(user),
                                         class: 'dropdown-item d-flex align-items-center gap-3',
-                                        target: :_blank,
                                         data: { turbo: :false } do %>
-                                    <i class="fs-4 ti ti-printer"></i> Solicitação de Inscrição
+                                    <i class="fs-4 ti ti-edit"></i> Editar participante
                                   <% end %>
                                 </li>
                                 <%= link_to 'Baixar pagamento', class: 'dropdown-item d-flex align-items-center gap-3', data: { bs_toggle: "modal", bs_target: "#paidUser#{user.id}" } do %>
                                   <i class="fs-4 ti ti-cash"></i> Confirmar pagamento
                                 <% end %>
+                                <li>
+                                  <%= link_to portal_user_voucher_pt_path(user, format: :pdf),
+                                        class: 'dropdown-item d-flex align-items-center gap-3',
+                                        target: :_blank,
+                                        data: { turbo: :false } do %>
+                                    <i class="fs-4 ti ti-printer"></i> Comprovante de Inscrição
+                                  <% end %>
+                                </li>
                               </ul>
                             </div>
                             <div id="paidUser<%= user.id %>" class="modal fade" tabindex="-1" aria-labelledby="paidUser<%= user.id %>" aria-hidden="true" style="display: none;">
@@ -284,17 +291,23 @@
                                     </h4>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
-                                  <div class="modal-body">
                                     <%= form_with model: [:portal, user], url: portal_user_pt_path(user), method: :put, data: { turbo: false }, class: '' do |f| %>
+                                  <div class="modal-body">
+                                      <label class="mb-2" for="">
+                                        <strong>Status do pagamento</strong>
+                                      </label>
                                       <div class="input-group mb-4">
-                                        <span class="input-group-text px-6"><i class="ti ti-file fs-6"></i></span>
-                                        <%= f.text_area :paid_note, class: 'form-control ps-2', placeholder: 'Informe os detalhes do pagamento' %>
-                                      </div>
-                                      <div class="input-group mb-4">
-                                        <span class="input-group-text px-6"><i class="ti ti-file fs-6"></i></span>
+                                        <span class="input-group-text px-6"><i class="ti ti-cash fs-6"></i></span>
                                         <%= f.collection_select :payment_status,
                                                                 User.payment_statuses.map { |key, value| [key, User.human_enum_name(:payment_statuses, key)]},
                                                                 :first, :last, { include_blank: 'Selecione uma das alternativas' }, { class: 'form-select', required: true } %>
+                                      </div>
+                                      <label class="mb-2" for="">
+                                        <strong>Observações sobre pagamento</strong>
+                                      </label>
+                                      <div class="input-group mb-4">
+                                        <span class="input-group-text px-6"><i class="ti ti-file fs-6"></i></span>
+                                        <%= f.text_area :paid_note, class: 'form-control ps-2', placeholder: 'Informe os detalhes do pagamento' %>
                                       </div>
                                       <div class="col-12 text-center mt-2 pt-50">
                                         <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">CONFIRMAR PAGAMENTO</button>
