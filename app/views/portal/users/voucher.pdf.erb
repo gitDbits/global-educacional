@@ -66,6 +66,12 @@
                   <strong><span class="text-danger">Pendente</span></strong>
                 <% end %>
               </p>
+              <% unless user.payment_status.blank? %>
+                <p class="card-text mb-1">
+                  <strong>Informações sobre pagamento:</strong>
+                  <%= user&.paid_note %>
+                </p>
+              <% end %>
             </div>
           </div>
         </div>
