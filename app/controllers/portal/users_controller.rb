@@ -130,7 +130,7 @@ module Portal
       params.require(:user).permit(:name, :email, :cpf, :phone, :zipcode, :address,
                                    :number_address, :district, :complement_address,
                                    :city, :state, :password, :password_confirmation, :admin,
-                                   :paid, :paid_note, :payment_status, :payment_status, :institution)
+                                   :paid, :paid_note, :payment_status, :institution, :payment_method)
     end
   end
 end
