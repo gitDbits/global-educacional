@@ -82,7 +82,7 @@ module Portal
 
     def report_participants
       @event = Event.first
-      
+
       @users_by_city = User.where(admin: nil).group_by(&:city).transform_values do |users|
         users.sort_by { |user| user.name }
       end
@@ -130,7 +130,7 @@ module Portal
       params.require(:user).permit(:name, :email, :cpf, :phone, :zipcode, :address,
                                    :number_address, :district, :complement_address,
                                    :city, :state, :password, :password_confirmation, :admin,
-                                   :paid, :paid_note, :payment_status, :institution)
+                                   :paid, :paid_note, :payment_status, :payment_status, :institution)
     end
   end
 end

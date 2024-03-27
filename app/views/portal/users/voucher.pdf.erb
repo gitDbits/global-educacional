@@ -56,7 +56,16 @@
             <div class="card-body">
               <h6 class="text-center"><strong>Informações sobre pagamento</strong></h6>
               <p class="card-text mb-1"><strong>Forma de pagamento:</strong> <%= I18n.t("payment_method.#{user.payment_method}") %></p>
-              <p class="card-text mb-1"><strong>Status:</strong> <%= user.paid? ? 'Pago' : 'Em aberto' %></p>
+              <p class="card-text mb-1">
+                <strong>Status:</strong>
+                <% if user.payment_status == 'paid' %>
+                  <strong><span class="text-success">Pago</span></strong>
+                <% elsif user.payment_status == 'document_paid' %>
+                  <strong><span class="text-info">Empenhado</span></strong>
+                <% else %>
+                  <strong><span class="text-danger">Pendente</span></strong>
+                <% end %>
+              </p>
             </div>
           </div>
         </div>
