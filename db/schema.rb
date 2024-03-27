@@ -23,13 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_26_123827) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "state_ufs", force: :cascade do |t|
-    t.string "abbreviation"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "states", force: :cascade do |t|
     t.string "abbreviation"
     t.string "name"
@@ -61,7 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_26_123827) do
     t.text "paid_note"
     t.string "payment_status"
     t.string "institution"
-    t.index ["email"], name: "index_users_on_email"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

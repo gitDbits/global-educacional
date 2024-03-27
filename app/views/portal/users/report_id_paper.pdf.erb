@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <title>Global Educacional</title>
+    <%= wicked_pdf_stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' %>
+    <%= wicked_pdf_javascript_include_tag %>
+    <style>
+      @page {
+        size: A4;
+        margin: 9mm 7mm;
+      }
+      body {
+        font-family: "Arial", sans-serif;
+        font-size: 10pt;
+      }
+      .etiqueta {
+        width: 63.5mm;
+        height: 31mm;
+        float: left;
+        box-sizing: border-box;
+        padding: 2mm;
+        margin-right: 7mm; /* Espaçamento entre as etiquetas */
+        margin-bottom: 9mm; /* Espaçamento entre as fileiras */
+      }
+      .etiqueta:nth-child(3n) {
+        margin-right: 0; /* Remove a margem direita da terceira etiqueta de cada linha */
+      }
+      .clear {
+        clear: both;
+      }
+    </style>
+  </head>
+  <body style="background-color: #fff;">
+    <% 27.times do |index| %>
+      <div class="etiqueta">
+        Etiqueta <%= index + 1 %>
+      </div>
+      <% if (index + 1) % 3 == 0 %>
+        <div class="clear"></div>
+      <% end %>
+    <% end %>
+  </body>
+</html>

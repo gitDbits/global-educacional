@@ -17,6 +17,7 @@ pt:
     passwords: senhas
     search_user: buscar_usuario
     report_participants: relatorio_participantes
+    report_id_paper: etiqueta_participantes
     award: premiacao
 
     

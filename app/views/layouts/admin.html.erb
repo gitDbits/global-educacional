@@ -143,6 +143,21 @@
                   </div>
                 <% end %>
               </div>
+              <div class="col-4">
+                <%= link_to report_participants_portal_users_pt_path(format: :pdf),
+                                        target: :_blank,
+                                        data: { turbo: :false } do %>
+                  <div class="card border-0 zoom-in bg-info-subtle shadow-none">
+                    <div class="card-body">
+                      <div class="text-center">
+                        <i class="icon ti ti-printer fs-9"></i>
+                        <p class="fw-semibold fs-3 text-info mb-1">Relatório Geral</p>
+                        <h5 class="fw-semibold text-info mb-0">Etiquetas participantes</h5>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
             </div>
             <div class="row">
               <div class="card w-100 position-relative overflow-hidden">

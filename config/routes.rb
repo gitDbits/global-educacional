@@ -25,10 +25,11 @@ Rails.application.routes.draw do
 
       resources :users, only: %i[show edit create update] do
         get :voucher
-        
+
         collection do
           get :award
           get :report_participants
+          get :report_id_paper
           match 'search_user' => 'home#home', via: %i[get post], as: :search_user
         end
       end

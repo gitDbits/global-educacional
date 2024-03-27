@@ -100,6 +100,21 @@ module Portal
       end
     end
 
+    def report_id_paper
+      @users = User.where(admin: nil)
+
+      respond_to do |format|
+        format.pdf do
+          render pdf: "etiqueta-participantes",
+                 margin: { left: 7, right: 7, top: 9, bottom: 9 },
+                 show_as_html: params.key?('debug'),
+                 footer: { right: '[page]',
+                           margin: { bottom: 9 } },
+                 locals: { users: @users }
+        end
+      end
+    end
+
     def award
       @award_user = User.where(admin: nil)
     end
