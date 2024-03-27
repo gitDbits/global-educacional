@@ -106,10 +106,8 @@ module Portal
       respond_to do |format|
         format.pdf do
           render pdf: "etiqueta-participantes",
-                 margin: { left: 7, right: 7, top: 9, bottom: 9 },
+                 margin:  { top: 0, bottom: 0, left: 0, right: 0 },
                  show_as_html: params.key?('debug'),
-                 footer: { right: '[page]',
-                           margin: { bottom: 9 } },
                  locals: { users: @users }
         end
       end
