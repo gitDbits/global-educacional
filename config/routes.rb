@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         get :voucher
         
         collection do
+          get :award
           get :report_participants
           match 'search_user' => 'home#home', via: %i[get post], as: :search_user
         end

@@ -14,6 +14,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
     <link rel="stylesheet" href="/admin/assets/css/styles.css" />
     <link rel="stylesheet" href="/admin/assets/libs/owl.carousel/dist/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   </head>
   <body>
     <div id="main-wrapper">
@@ -34,9 +36,13 @@
                 <span class="hide-menu">HOME</span>
               </li>
               <li class="sidebar-item">
-                <%= link_to portal_home_pt_path, class: 'sidebar-link active' do %>
+                <%= link_to portal_home_pt_path, class: 'sidebar-link' do %>
                   <span><i class="ti ti-home"></i></span>
                   <span class="hide-menu">Início</span>
+                <% end %>
+                <%= link_to award_portal_users_pt_path, class: 'sidebar-link' do %>
+                  <span><i class="mdi mdi-medal mdi-18px"></i></span>
+                  <span class="hide-menu">Sorteador</span>
                 <% end %>
               </li>
             </ul>

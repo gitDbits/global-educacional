@@ -100,6 +100,10 @@ module Portal
       end
     end
 
+    def award
+      @award_user = User.where(admin: nil)
+    end
+
     private
 
     def set_user
@@ -120,6 +124,8 @@ module Portal
       when 'show'
         'admin_detail'
       when 'edit'
+        'admin_detail'
+      when 'award'
         'admin_detail'
       else
         'admin'
