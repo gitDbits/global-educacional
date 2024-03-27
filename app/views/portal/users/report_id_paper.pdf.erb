@@ -3,48 +3,55 @@
   <head>
     <meta charset="utf-8" />
     <title>Global Educacional</title>
-    <%= wicked_pdf_stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' %>
+    <%= wicked_pdf_stylesheet_link_tag 'bootstrap.min.css' %> <!-- Atualize o link se necessário -->
     <style>
       @page {
         size: A4;
-        margin: 0mm;
+        margin: 5mm; /* Sua configuração de margem */
       }
       body {
         background-color: #fff;
-        font-size: 10pt;
-        -webkit-print-color-adjust: exact;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
-      .etiqueta {
-        width: 63.5mm;
-        height: 31mm;
-        margin-bottom: 9mm; /* Espaçamento vertical entre as filas */
+      .container {
+        width: auto; /* Garante que o contêiner não ultrapasse a largura da página */
+        padding: 0; /* Remove o padding padrão do contêiner Bootstrap */
+      }
+      .row {
+        margin-right: 0; /* Remove a margem padrão direita da linha */
+        margin-left: 0; /* Remove a margem padrão esquerda da linha */
       }
       .col-md-4 {
-        padding-left: 1.75mm; /* Ajuste a margem interna conforme necessário */
-        padding-right: 1.75mm; /* Ajuste a margem interna conforme necessário */
+        padding: 0; /* Remove o padding padrão das colunas */
+        width: 63.5mm; /* Largura das etiquetas */
+        height: 31mm; /* Altura das etiquetas */
+        margin-bottom: 9mm; /* Espaço entre as filas de etiquetas */
       }
-      /* Sobrescrever as margens do Bootstrap para que a última coluna de cada linha não tenha espaço extra à direita */
-      .row .col-md-4:last-child {
-        padding-right: 0;
+      .card {
+        height: 100%; /* Faz o card preencher totalmente a altura da coluna */
+        border: none; /* Opcional: remove a borda do card se desejado */
+      }
+      .card-body {
+        font-size: 10pt;
       }
     </style>
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
         <% @users.each_with_index do |user, index| %>
           <div class="col-md-4">
             <div class="card">
               <div class="card-body">
-                <!-- Conteúdo da etiqueta aqui, por exemplo: -->
+                <!-- Conteúdo da etiqueta -->
                 Nome: <%= user.name %><br>
                 ID: <%= user.id %>
               </div>
             </div>
           </div>
           <% if (index + 1) % 3 == 0 && index + 1 != @users.size %>
-          </div>
-          <div class="row">
+            <div class="w-100"></div>
+ <!-- Bootstrap 4/5 class to break to a new line -->
           <% end %>
         <% end %>
       </div>
