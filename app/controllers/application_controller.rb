@@ -8,4 +8,5 @@ class ApplicationController < ActionController::Base
   include RansackMemory::Concern
 
   before_action :authenticate_user!
+  before_action :save_and_load_filters
 end
