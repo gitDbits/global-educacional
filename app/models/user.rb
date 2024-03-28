@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   validate :validate_cpf, on: :create
   validate :validate_uniqueness_fields
-  enum payment_status: { paid: 'Pago', document_paid: 'Empenhado' }
+  enum payment_status: { paid: 'Pago', document_paid: 'Empenhado', document_bonus: 'Bônus' }
   translated_enums :gender
 
   private
