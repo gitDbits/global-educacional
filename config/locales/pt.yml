@@ -122,6 +122,7 @@ pt:
         payment_statuses:
           paid: 'Pago'
           document_paid: 'Empenhado'
+          document_bonus: 'Bônus'
 
     errors:
       models:
