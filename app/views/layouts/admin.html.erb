@@ -122,7 +122,7 @@
                   <div class="card-body">
                     <div class="text-center">
                       <i class="icon ti ti-users fs-9"></i>
-                      <p class="fw-semibold fs-3 text-primary mb-1">Participantes</p>
+                      <p class="fw-semibold fs-3 text-primary mb-1">Total de Participantes</p>
                       <h5 class="fw-semibold text-primary mb-0"><%= User.where(admin: nil).count %></h5>
                     </div>
                   </div>
@@ -142,6 +142,39 @@
                     </div>
                   </div>
                 <% end %>
+              </div>
+              <div class="col-4">
+                <div class="card border-0 zoom-in bg-danger-subtle shadow-none">
+                  <div class="card-body">
+                    <div class="text-center">
+                      <i class="icon ti ti-users fs-9"></i>
+                      <p class="fw-semibold fs-3 text-danger mb-1">Participantes pendentes</p>
+                      <h5 class="fw-semibold text-danger mb-0"><%= User.where(admin: nil, payment_status: nil).count %></h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="card border-0 zoom-in bg-warning-subtle shadow-none">
+                  <div class="card-body">
+                    <div class="text-center">
+                      <i class="icon ti ti-users fs-9"></i>
+                      <p class="fw-semibold fs-3 text-warning mb-1">Participantes empenhados</p>
+                      <h5 class="fw-semibold text-warning mb-0"><%= User.where(admin: nil, payment_status: 'document_paid').count %></h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="card border-0 zoom-in bg-success-subtle shadow-none">
+                  <div class="card-body">
+                    <div class="text-center">
+                      <i class="icon ti ti-users fs-9"></i>
+                      <p class="fw-semibold fs-3 text-success mb-1">Participantes pagos</p>
+                      <h5 class="fw-semibold text-success mb-0"><%= User.where(admin: nil, payment_status: 'paid').count %></h5>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">
