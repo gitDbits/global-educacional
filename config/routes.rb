@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       get 'home', to: 'home#home'
 
       resources :events do
-        get :checkout
+        # get :checkout
       end
 
       resources :users, only: %i[show edit create update] do
