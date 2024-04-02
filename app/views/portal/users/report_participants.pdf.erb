@@ -42,7 +42,7 @@
                 </tr>
               </thead>
               <tbody style="text-align: center; font-size: 14px;">
-                <% users.each_with_index do |user, index| %>
+                <% users.sort_by { |user| user.name.downcase }.each_with_index do |user, index| %>
                   <tr>
                     <td><strong><%= index + 1 %></strong></td>
                     <td><%= user.id %></td>
