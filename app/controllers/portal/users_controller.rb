@@ -113,7 +113,7 @@ module Portal
       respond_to do |format|
         format.pdf do
           render pdf: "lista-participante-#{@event.name}",
-                 margin: { left: 15, right: 15 },
+                 margin: { left: 15, right: 15, bottom: 15 },
                  orientation: 'Landscape',
                  show_as_html: params.key?('debug'),
                  footer: { right: '[page]',
