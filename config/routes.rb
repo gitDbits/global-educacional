@@ -30,7 +30,7 @@ Rails.application.routes.draw do
           get :award
           get :report_participants
           get :report_id_paper
-          get :report_list
+          get :report_list_presence
           match 'search_user' => 'home#home', via: %i[get post], as: :search_user
         end
       end

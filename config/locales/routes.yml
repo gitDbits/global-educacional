@@ -18,6 +18,7 @@ pt:
     search_user: buscar_usuario
     report_participants: relatorio_participantes
     report_id_paper: etiqueta_participantes
+    report_list_presence: lista_presenca
     award: premiacao
 
     
