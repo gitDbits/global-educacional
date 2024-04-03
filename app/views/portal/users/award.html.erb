@@ -8,6 +8,7 @@
         <button type="button" class="btn btn-warning btn-lg mt-4 animate__animated animate__bounce">
           <h1 class="text-white">Número inscrição: <%= params[:number] %> </h1>
           <h1 class="text-white">Nome: <%= User.find(params[:number]).name %></h1>
+          <h1 class="text-white">Cidade: <%= User.find(params[:number]).city %></h1>
         </button>
         <%= link_to award_portal_users_pt_path, data: { turbo: false }, class: '' do %>
           <div class="col-md-12">
