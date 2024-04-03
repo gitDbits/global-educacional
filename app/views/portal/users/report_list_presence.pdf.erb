@@ -17,7 +17,8 @@
         <h6>EVENTO: <%= Event.first.name.upcase %></h6>
       </div>
       <div class="row text-center mb-4">
-        <strong>LISTA DE PRESENÇA</strong><br><br>
+        <strong>LISTA DE PRESENÇA</strong><br>
+        <br>
         <h6>Data: <%= @event_date.to_date.strftime('%d/%m/%Y') %></h6>
         <h6>Período: <%= @start_time %> h - <%= @end_time %> h</h6>
       </div>
@@ -27,16 +28,16 @@
             <div class="city-header" style="background-color: #D3D3D3; padding: 5px; margin-top: 10px; text-align: center;">
               <strong><%= city.upcase %></strong>
             </div>
-            <table class="table table-striped">
+            <table class="table table-striped" style="width: 100%; table-layout: fixed;">
               <thead>
                 <tr>
-                  <th scope="col">QTD</th>
-                  <th scope="col">N INS.</th>
-                  <th scope="col">NOME</th>
-                  <th scope="col">CPF</th>
-                  <th scope="col">ORGÃO</th>
-                  <th scope="col">CIDADE</th>
-                  <th scope="col">ASSINATURA</th>
+                  <th scope="col" style="width: 5%;">QTD</th>
+                  <th scope="col" style="width: 10%;">N INS.</th>
+                  <th scope="col" style="width: 15%;">NOME</th>
+                  <th scope="col" style="width: 15%;">CPF</th>
+                  <th scope="col" style="width: 15%;">ORGÃO</th>
+                  <th scope="col" style="width: 15%;">CIDADE</th>
+                  <th scope="col" style="width: 25%;">ASSINATURA</th>
                 </tr>
               </thead>
               <tbody style="font-size: 14px;">

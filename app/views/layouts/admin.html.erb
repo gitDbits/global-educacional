@@ -44,8 +44,8 @@
                   <span><i class="mdi mdi-medal mdi-18px"></i></span>
                   <span class="hide-menu">Sorteador</span>
                 <% end %>
-                <%= link_to 'Baixar pagamento', class: 'sidebar-link', data: { bs_toggle: "modal", bs_target: "#reportListPresence" } do %>
-                  <i class="fs-4 ti ti-cash"></i> Relatório Lista de Presença
+                 <%= link_to 'Lista de presença', class: 'sidebar-link', data: { bs_toggle: "modal", bs_target: "#reportListPresence" } do %>
+                  <i class="fs-4 ti ti-printer"></i> Relatório Lista de Presença
                 <% end %>
               </li>
             </ul>
@@ -177,53 +177,6 @@
                       <h5 class="fw-semibold text-success mb-0"><%= User.where(admin: nil, payment_status: 'paid').count %></h5>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-4">
-                <%= link_to 'Baixar pagamento', class: 'dropdown-item d-flex align-items-center gap-3', data: { bs_toggle: "modal", bs_target: "#reportListPresence" } do %>
-                  <i class="fs-4 ti ti-cash"></i> Confirmar pagamento
-                <% end %>
-                <div id="reportListPresence" class="modal fade" tabindex="-1" aria-labelledby="reportListPresence" aria-hidden="true" style="display: none;">
-                  <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                    <div class="modal-content">
-                      <div class="modal-header d-flex align-items-center">
-                        <h4 class="modal-title" id="filterUserLabel">
-                          Selecione abaixo o período para impressão da Lista de presença
-                        </h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <%= form_tag(report_list_presence_portal_users_pt_path(format: :pdf), method: "get", target: "_blank") do %>
-                          <div class="mb-3">
-                            <label for="event_date" class="form-label">Dia do Evento:</label>
-                            <%= date_field_tag :event_date, nil, class: "form-control", required: true %>
-                          </div>
-                          <div class="mb-3">
-                            <label for="start_time" class="form-label">Horário Inicial:</label>
-                            <%= time_field_tag :start_time, nil, class: "form-control", required: true %>
-                          </div>
-                          <div class="mb-3">
-                            <label for="end_time" class="form-label">Horário Final:</label>
-                            <%= time_field_tag :end_time, nil, class: "form-control", required: true %>
-                          </div>
-                          <%= submit_tag "Gerar Lista de Presença", class: "btn btn-primary" %>
-                        <% end %>
-                      </div>
-                    </div>
-                  </div>
-                  <%= link_to report_list_presence_portal_users_pt_path(format: :pdf),
-                                          target: :_blank,
-                                          data: { turbo: :false } do %>
-                    <div class="card border-0 zoom-in bg-info-subtle shadow-none">
-                      <div class="card-body">
-                        <div class="text-center">
-                          <i class="icon ti ti-printer fs-9"></i>
-                          <p class="fw-semibold fs-3 text-info mb-1">Relatório Geral</p>
-                          <h5 class="fw-semibold text-info mb-0">Lista de Presença</h5>
-                        </div>
-                      </div>
-                    </div>
-                  <% end %>
                 </div>
               </div>
               <div class="row">
