@@ -44,6 +44,10 @@
                   <span><i class="mdi mdi-medal mdi-18px"></i></span>
                   <span class="hide-menu">Sorteador</span>
                 <% end %>
+                <%= link_to portal_institutions_pt_path, class: 'sidebar-link' do %>
+                  <span><i class="mdi mdi-car mdi-18px"></i></span>
+                  <span class="hide-menu">Instituições</span>
+                <% end %>
                  <%= link_to 'Lista de presença', class: 'sidebar-link', data: { bs_toggle: "modal", bs_target: "#reportListPresence" } do %>
                   <i class="fs-4 ti ti-printer"></i> Relatório Lista de Presença
                 <% end %>

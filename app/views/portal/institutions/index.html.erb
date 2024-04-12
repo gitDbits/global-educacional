@@ -1,0 +1,204 @@
+<div class="row">
+  <div class="card w-100 position-relative overflow-hidden">
+    <div class="px-4 py-3 border-bottom">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="card-title fw-semibold mb-0 lh-sm"><i class="icon ti ti-institutions"></i> Lista de instituições</h5>
+        <div class="d-flex align-items-center">
+          <%= search_form_for [:portal, @q], url: search_institution_portal_institutions_pt_path, html: { method: :post, data: { turbo: false } } do |f| %>
+            <div class="input-group">
+              <%= f.search_field :name_or_cnpj_cont, class: 'form-control', placeholder: 'Buscar', value: "#{params.dig(:q, :name_cont)}" %>
+              <% if params[:q].present? %>
+                <%= clear_filter title: 'Limpar busca', class: 'btn btn-primary rounded-end', data: { turbo: false } do %>
+                  <i class="mdi mdi-eye-off-outline"></i>
+                <% end %>
+              <% else %>
+                <button class="btn btn-primary rounded-end" type="submit">
+                  <i class="ti ti-search"></i>
+                </button>
+              <% end %>
+            </div>
+          <% end %>
+          <button class="btn bg-primary-subtle text-primary px-4 fs-4 ms-2" data-bs-toggle="modal" data-bs-target="#filterinstitution">
+            <i class="ti ti-filter"></i> Filtrar
+          </button>
+          <div id="filterinstitution" class="modal fade" tabindex="-1" aria-labelledby="filterinstitution" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+              <div class="modal-content">
+                <div class="modal-header d-flex align-items-center">
+                  <h4 class="modal-title" id="filterinstitutionLabel">
+                    Selecione um dos filtros abaixo
+                  </h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <%= search_form_for [:portal, @q], url: search_institution_portal_institutions_pt_path,
+                                  html: { method: :post, data: { turbo: false } } do |f| %>
+                    <div class="input-group mb-4">
+                      <span class="input-group-text px-6"><i class="ti ti-barcode fs-6"></i></span>
+                      <%= f.text_field :name_cont, class: 'form-control ps-2 name', placeholder: 'Buscar pelo cpf' %>
+                    </div>
+                    <div class="input-group mb-4">
+                      <span class="input-group-text px-6"><i class="ti ti-phone fs-6"></i></span>
+                      <%= f.text_field :phone_cont, class: 'form-control ps-2 sp_celphones', placeholder: 'Buscar pelo telefone' %>
+                    </div>
+                    <div class="col-12 text-center mt-2 pt-50">
+                      <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Buscar</button>
+                      <%= clear_filter title: 'Limpar filtro', class: 'btn bg-danger-subtle text-danger waves-effect' %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body p-4">
+    <div class="table-responsive mb-4">
+      <table class="table border text-nowrap mb-0 align-middle">
+        <thead class="text-dark fs-4">
+          <tr>
+            <th>
+              <h6 class="fs-4 fw-semibold mb-0">
+                <%= sort_link(@q, :id, 'Cód Inscrição', data: { turbo: false })  %>
+              </h6>
+            </th>
+            <th>
+              <h6 class="fs-4 fw-semibold mb-0">
+                <%= sort_link(@q, :name, 'Nome', data: { turbo: false })  %>
+              </h6>
+            </th>
+            <th>
+              <h6 class="fs-4 fw-semibold mb-0">
+                <%= sort_link(@q, :cpf, 'CPF', data: { turbo: false })  %>
+              </h6>
+            </th>
+            <th>
+              <h6 class="fs-4 fw-semibold mb-0">
+                <%= sort_link(@q, :phone, 'Telefone', data: { turbo: false })  %>
+              </h6>
+            </th>
+            <th>
+              <h6 class="fs-4 fw-semibold mb-0">
+                <%= sort_link(@q, :payment_method, 'Forma de pagamento', data: { turbo: false })  %>
+              </h6>
+            </th>
+            <th>
+              <h6 class="fs-4 fw-semibold mb-0">
+                <%= sort_link(@q, :paid, 'Status do pagamento', data: { turbo: false })  %>
+              </h6>
+            </th>
+            <th>
+              <h6 class="fs-4 fw-semibold mb-0">
+                <%= sort_link(@q, :created_at, 'Data inscrição', data: { turbo: false })  %>
+              </h6>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @institutions.each do |institution| %>
+            <tr>
+              <td>
+                <h6 class="fs-4 fw-semibold mb-0"><%= institution.id %></h6>
+              </td>
+              <td>
+                <div class="dropdown dropstart">
+                  <a href="#" class="text-muted" id="dropdownMenuButton<%= institution.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+                    <strong class="text-black"><%= institution.name.upcase %>&nbsp;&nbsp;&nbsp;&nbsp;<i class="ti ti-dots fs-6"></i></strong>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= institution.id %>">
+                    <li>
+                      <%= link_to portal_institution_pt_path(institution),
+                                        class: 'dropdown-item d-flex align-items-center gap-3',
+                                        data: { turbo: :false } do %>
+                        <i class="fs-4 ti ti-search"></i> Visualizar participante
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to edit_portal_institution_pt_path(institution),
+                                        class: 'dropdown-item d-flex align-items-center gap-3',
+                                        data: { turbo: :false } do %>
+                        <i class="fs-4 ti ti-edit"></i> Editar participante
+                      <% end %>
+                    </li>
+                    <%= link_to 'Baixar pagamento', class: 'dropdown-item d-flex align-items-center gap-3', data: { bs_toggle: "modal", bs_target: "#paidinstitution#{institution.id}" } do %>
+                      <i class="fs-4 ti ti-cash"></i> Confirmar pagamento
+                    <% end %>
+                    <li>
+                      <%= link_to portal_institution_voucher_pt_path(institution, format: :pdf),
+                                        class: 'dropdown-item d-flex align-items-center gap-3',
+                                        target: :_blank,
+                                        data: { turbo: :false } do %>
+                        <i class="fs-4 ti ti-printer"></i> Comprovante de Inscrição
+                      <% end %>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+              <td>
+                <p class="mb-0 fw-normal fs-4"><%= mask_cpf(institution.cpf) %></p>
+              </td>
+              <td>
+                <p class="mb-0 fw-normal fs-4"><%= institution.phone %></p>
+              </td>
+              <td>
+                <span class="badge rounded-pill bg-success-subtle text-success fw-semibold fs-2"><%= I18n.t("payment_method.#{institution.payment_method}") %> <%= mask_money(Event.last.value) %></span>
+              </td>
+              <td>
+                <% if institution.payment_status == 'paid' %>
+                  <span class="badge rounded-pill bg-info-subtle text-info fw-semibold fs-2">Pago</span>
+                <% elsif institution.payment_status == 'document_paid' %>
+                  <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold fs-2">Empenhado</span>
+                <% else %>
+                  <span class="badge rounded-pill bg-danger-subtle text-danger fw-semibold fs-2">Pendente</span>
+                <% end %>
+              </td>
+              <td><%= institution.created_at.strftime('%d/%m/%Y %H:%M:%S') %></td>
+              <td>
+                <div id="paidinstitution<%= institution.id %>" class="modal fade" tabindex="-1" aria-labelledby="paidinstitution<%= institution.id %>" aria-hidden="true" style="display: none;">
+                  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header d-flex align-items-center">
+                        <h4 class="modal-title" id="filterinstitutionLabel">
+                          Realizar confirmação de pagamento
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <%= form_with model: [:portal, institution], url: portal_institution_pt_path(institution), method: :put, data: { turbo: false }, class: '' do |f| %>
+                        <div class="modal-body">
+                          <label class="mb-2" for="">
+                            <strong>Status do pagamento</strong>
+                          </label>
+                          <div class="input-group mb-4">
+                            <span class="input-group-text px-6"><i class="ti ti-cash fs-6"></i></span>
+                            <%= f.collection_select :payment_status,
+                                                                institution.payment_statuses.map { |key, value| [key, institution.human_enum_name(:payment_statuses, key)]},
+                                                                :first, :last, { include_blank: 'Selecione uma das alternativas' }, { class: 'form-select', required: true } %>
+                          </div>
+                          <label class="mb-2" for="">
+                            <strong>Observações sobre pagamento</strong>
+                          </label>
+                          <div class="input-group mb-4">
+                            <span class="input-group-text px-6"><i class="ti ti-file fs-6"></i></span>
+                            <%= f.text_area :paid_note, class: 'form-control ps-2', placeholder: 'Informe os detalhes do pagamento' %>
+                          </div>
+                          <div class="col-12 text-center mt-2 pt-50">
+                            <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">CONFIRMAR PAGAMENTO</button>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="mt-4 float-end"><%== pagy_bootstrap_nav(@pagy, link_extra: 'data-turbo="false"') %></div>
+    </div>
+  </div>
+</div>

@@ -34,6 +34,12 @@ Rails.application.routes.draw do
           match 'search_user' => 'home#home', via: %i[get post], as: :search_user
         end
       end
+
+      resources :institutions do
+        collection do
+          match 'search_institution' => 'institution#institution', via: %i[get post], as: :search_institution
+        end
+      end
     end
   end
 end

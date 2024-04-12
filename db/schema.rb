@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_26_123827) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_04_161022) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,30 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_26_123827) do
     t.string "duration"
     t.float "value"
     t.boolean "open_subscription"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "institutions", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "fantasy_name"
+    t.string "abbreviation"
+    t.string "cnpj"
+    t.string "phone"
+    t.string "address"
+    t.string "number_addres"
+    t.string "district"
+    t.string "city"
+    t.string "state"
+    t.string "complement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "state_ufs", force: :cascade do |t|
+    t.string "abbreviation"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,7 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_26_123827) do
     t.text "paid_note"
     t.string "payment_status"
     t.string "institution"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_users_on_email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
