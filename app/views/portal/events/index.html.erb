@@ -1,0 +1,37 @@
+<section class="categories-area pt-40 section-pb-90">
+  <div class="container">
+    <div class="row align-items-center justify-content-center mb-55">
+      <div class="col-md-12">
+        <div class="categories__title-wrap text-center text-lg-start m-0">
+          <div class="section__title mb-0">
+            <h2 class="title tg-svg">Participe dos nossos
+              <span class="position-relative"><span class="svg-icon" id="svg-5" data-svg-icon="assets/img/icons/title_shape.svg"></span>Eventos</span></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3">
+      <% @events.where(open_subscription: true).each do |event| %>
+        <div class="col-md-6">
+          <div class="categories__item-two tg-svg">
+            <%= link_to event_pt_path(event), data: { turbo: false } do %>
+              <div class="icon">
+                <span class="svg-icon" id="cat_svg2" data-svg-icon="assets/img/icons/categories_icon.svg"></span>
+                <i class="flaticon-group"></i>
+              </div>
+              <div class="info">
+                <span class="name"><%= event.name %></span>
+                <span>
+                  <strong>Inscrições abertas</strong>
+                  <div class="p-2">
+                    <i class="fa fa-calendar"></i> <%= event.start_event_day.strftime('%d') %> e <%= event.end_event_day.strftime('%d') %> de <%= I18n.t('date.month_names')[event.end_event_day.strftime('%m').to_i - 1] %> de <%= event.end_event_day.strftime('%Y') %> - <%= I18n.t("days_weekend.#{event.start_event_day.strftime('%A').downcase}") %> e <%= I18n.t("days_weekend.#{event.end_event_day.strftime('%A').downcase}") %>
+                  </div>
+                </span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

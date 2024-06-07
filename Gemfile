@@ -25,6 +25,7 @@ gem 'ransack_memory'
 gem 'wicked_pdf'
 gem 'rqrcode'
 gem 'rqrcode_png'
+gem 'friendly_id', '~> 5.5.0'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

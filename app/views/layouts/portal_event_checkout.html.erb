@@ -70,7 +70,7 @@
                         <a href="#sobre_nos"><strong>Sobre nós</strong></a>
                       </li>
                       <li class="menu-item">
-                        <%= link_to portal_event_pt_path(1) do %>
+                        <%= link_to events_pt_path, data: { turbo: false } do  %>
                           <strong>Eventos</strong>
                         <% end %>
                       </li>
@@ -168,8 +168,8 @@
                 <ul class="list-wrap">
                   <li><a href="#cursos">Cursos</a></li>
                   <li><a href="#sobre_nos">Sobre nós</a></li>
-                  <li class="menu-item">
-                    <%= link_to portal_event_pt_path(1) do %>
+                  <li>
+                    <%= link_to events_pt_path, data: { turbo: false } do  %>
                       <strong>Eventos</strong>
                     <% end %>
                   </li>
@@ -224,12 +224,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
       $(document).ready(function(){
-        $('#user_cpf').mask('000.000.000-00');
+        $('#subscription_event_cpf').mask('000.000.000-00');
       });
     </script>
     <script>
       $(document).ready(function(){
-        $('#user_zipcode').mask('00.000-000');
+        $('#subscription_event_zipcode').mask('00.000-000');
       });
     </script>
     <script>
@@ -241,25 +241,23 @@
         field.mask(SPMaskBehavior.apply({}, arguments), options);
       }
           };
-
           $('.sp_celphones').mask(SPMaskBehavior, spOptions);
     </script>
     <script type="text/javascript">
       $(document).ready(function() {
-          $("#user_zipcode").focusout(function(){
-        // Captura o valor do input e remove pontos e hífens
-        var cepFormatado = $(this).val().replace(/\D/g, ''); // Remove qualquer caracter não dígito
-        console.log("CEP digitado formatado: " + cepFormatado); // Imprime o CEP formatado no console
+          $("#subscription_event_zipcode").focusout(function(){
+        var cepFormatado = $(this).val().replace(/\D/g, '');
+        console.log("CEP digitado formatado: " + cepFormatado);
 
         $.ajax({
-            url: '/cep/' + cepFormatado, // Usa o CEP formatado na URL
+            url: '/cep/' + cepFormatado,
             dataType: 'json',
             success: function(resposta){
-                $("#user_address").val(resposta.logradouro);
-                $("#user_number_address").focus();
-                $("#user_district").val(resposta.bairro);
-                $("#user_state").val(resposta.uf);
-                $("#user_city").val(resposta.localidade);
+                $("#subscription_event_address").val(resposta.logradouro);
+                $("#subscription_event_number_address").focus();
+                $("#subscription_event_district").val(resposta.bairro);
+                $("#subscription_event_state").val(resposta.uf);
+                $("#subscription_event_city").val(resposta.localidade);
             }
         });
           });

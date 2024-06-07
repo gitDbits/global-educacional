@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <title>Global Educacional</title>
+    <%= wicked_pdf_stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' %>
+    <%= wicked_pdf_javascript_include_tag %>
+  </head>
+  <body style="background-color: #fff;">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-12 mb-4">
+          <img src="https://globaleducacional.com.br/assets/img/logo/logo.png" style=''  alt="Global Educacional" />
+        </div>
+      </div>
+      <div class="row text-center mb-4">
+        <h6>SOLICITAÇÃO DE PRÉ INSCRIÇÃO EVENTO</h6>
+      </div>
+      <div class="row mb-2">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="text-center"><strong>Informações do Evento</strong></h6>
+              <p class="card-text mb-1"><strong>Evento:</strong> <%= @subscription_event.event.name %></p>
+              <p class="card-text mb-1"><strong>Data do Evento:</strong> <%= @subscription_event.event.start_event_day.strftime('%d') %> e <%= @subscription_event.event.end_event_day.strftime('%d') %> de <%= I18n.t('date.month_names')[@subscription_event.event.end_event_day.strftime('%m').to_i - 1] %> de <%= @subscription_event.event.end_event_day.strftime('%Y') %> - <%= I18n.t("days_weekend.#{@subscription_event.event.start_event_day.strftime('%A').downcase}") %> e <%= I18n.t("days_weekend.#{@subscription_event.event.end_event_day.strftime('%A').downcase}") %></p>
+              <p class="card-text mb-1"><strong>Facilitador:</strong> <%= @subscription_event.event.announcer %></p>
+              <p class="card-text mb-1"><strong>Valor de inscrição:</strong> <%= mask_money(@subscription_event.event.value)%></p>
+              <p class="card-text mb-1"><strong>Conteúdo para maiores detalhes acesse: https://globaleducacional.com.br<%= event_pt_path(@subscription_event.event) %></strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="text-center"><strong>Informações do participante</strong></h6>
+              <p class="card-text mb-1"><strong>Matrícula:</strong> <%= @subscription_event.user.id %></p>
+              <p class="card-text mb-1"><strong>Data da Matrícula:</strong> <%= @subscription_event.user.created_at.strftime('%d/%m/%Y') %></p>
+              <p class="card-text mb-1"><strong>Nome:</strong> <%= @subscription_event.user.name %></p>
+              <p class="card-text mb-1"><strong>CPF:</strong> <%= mask_cpf(@subscription_event.user.cpf) %></p>
+              <p class="card-text mb-1"><strong>Telefone:</strong> <%= @subscription_event.user.phone %></p>
+              <p class="card-text mb-1"><strong>Cep:</strong> <%= @subscription_event.user.zipcode %></p>
+              <p class="card-text mb-1"><strong>Endereço:</strong> <%= @subscription_event.user.address %></p>
+              <p class="card-text mb-1"><strong>Número de endereço:</strong> <%= @subscription_event.user.number_address %></p>
+              <p class="card-text mb-1"><strong>Bairro:</strong> <%= @subscription_event.user.district %></p>
+              <p class="card-text mb-1"><strong>Cidade:</strong> <%= @subscription_event.user.city %></p>
+              <p class="card-text mb-1"><strong>Estado:</strong> <%= @subscription_event.user.state %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="text-center"><strong>Informações sobre pagamento</strong></h6>
+              <p class="card-text mb-1"><strong>Forma de pagamento:</strong> <%= I18n.t("payment_method.#{@subscription_event.payment_type}") %></p>
+              <p class="card-text mb-1">
+                <strong>Status:</strong>
+                <% if @subscription_event.payment_status == 'paid' %>
+                  <strong><span class="text-success">Pago</span></strong>
+                <% elsif @subscription_event.payment_status == 'document_paid' %>
+                  <strong><span class="text-info">Empenhado</span></strong>
+                <% else %>
+                  <strong><span class="text-danger">Pendente</span></strong>
+                <% end %>
+              </p>
+              <% unless @subscription_event.payment_status.blank? %>
+                <p class="card-text mb-1">
+                  <strong>Informações sobre pagamento:</strong>
+                  <%= @subscription_event&.paid_note %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4 text-center">
+        <strong>A INSCRIÇÃO SERÁ EFETIVADA APÓS O PROCESSO DAS INFORMAÇÕES DE PAGAMENTO</strong>
+        <p class="card-text mb-1 mb-4"><strong>Para maiores detalhes sobre o status de sua inscrição, basta entrar em contato via Whatsapp: (69) 99272-9043</strong></p>
+        <p>Este documento foi impresso via Global Educacional em: <%= Time.now.strftime('%d/%m/%Y %H:%M')%></p>
+        <strong><%= image_tag "#{qrcode_for_voucher}", class: "qr-code", size: "100x100" %></strong>
+      </div>
+    </div>
+  </body>
+</html>

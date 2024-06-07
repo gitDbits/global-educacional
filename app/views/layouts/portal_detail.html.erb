@@ -14,7 +14,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.png">
     <!-- Place favicon.ico in the root directory -->
     <!-- CSS here -->
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css"
+          integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../assets/css/animate.min.css">
     <link rel="stylesheet" href="../../assets/css/magnific-popup.css">
     <link rel="stylesheet" href="../../assets/css/fontawesome-all.min.css">
@@ -70,7 +72,7 @@
                         <a href="#sobre_nos"><strong>Sobre nós</strong></a>
                       </li>
                       <li class="menu-item">
-                        <%= link_to portal_event_pt_path(1) do %>
+                        <%= link_to events_pt_path, data: { turbo: false } do  %>
                           <strong>Eventos</strong>
                         <% end %>
                       </li>
@@ -169,8 +171,8 @@
                 <ul class="list-wrap">
                   <li><a href="#cursos">Cursos</a></li>
                   <li><a href="#sobre_nos">Sobre nós</a></li>
-                  <li class="menu-item">
-                    <%= link_to portal_event_pt_path(1) do %>
+                  <li>
+                    <%= link_to events_pt_path, data: { turbo: false } do  %>
                       <strong>Eventos</strong>
                     <% end %>
                   </li>
@@ -239,6 +241,10 @@
     <script src="../../assets/js/aos.js"></script>
     <script src="../../assets/js/main.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1SNVLFN1L2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js"
+            integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}

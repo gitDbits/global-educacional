@@ -7,18 +7,19 @@ module Portal
 
     layout :resolve_layout
 
-    before_action :set_event, only: %i[show]
+    before_action :set_event, only: %i[show checkout]
 
     def new; end
 
-    def index; end
+    def index
+      @events = Event.all
+    end
 
     def show
-      @event = Event.find(params[:id])
+      @event = Event.friendly.find(params[:id])
     end
 
     def create
-      debugger
       if @event.save
         flash[:success] = 'Evento criado com sucesso!'
         redirect_back fallback_location: root_path
@@ -39,7 +40,7 @@ module Portal
     end
 
     def checkout
-      @event = Event.find(params[:event_id])
+      @subscription_event = SubscriptionEvent.new
       @states = State.all
     end
 
@@ -58,7 +59,7 @@ module Portal
     end
 
     def set_event
-      @event = Event.find(params[:id])
+      @event = Event.friendly.find(params[:id])
     end
 
     def resolve_layout

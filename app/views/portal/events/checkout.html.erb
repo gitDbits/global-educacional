@@ -1,7 +1,7 @@
 <style>
-  .is-invalid {
-  border-color: red !important;
-  }
+    .is-invalid {
+        border-color: red !important;
+    }
 </style>
 <div class="container">
   <div class="py-5 text-center">
@@ -25,7 +25,8 @@
       </div>
     <% end %>
   </div>
-  <%= form_with model: User.new, url: portal_users_pt_path, method: :post, data: { turbo: false }, class: '' do |f| %>
+  <%= form_with model: @subscription_event, url: portal_subscription_events_pt_path(@event), method: :post,
+                data: { turbo: false }, class: '' do |f| %>
     <%= f.hidden_field :event_id, value: @event.id %>
     <div class="row">
       <div class="col-md-4 order-md-2 mb-4">
@@ -39,20 +40,24 @@
               <small class="text-muted">Francisco Netto</small>
               <div class="d-block my-3">
                 <div class="custom-control custom-radio">
-                  <input id="pix" name="payment_method" value="pix" checked="" type="radio" class="custom-control-input">
-                  <label class="custom-control-label" for="pix">PIX</label>
+                  <%= f.radio_button :payment_type, 'empenho', checked: true, class: 'custom-control-input', id: 'empenho' %>
+                  <%= f.label :payment_type, 'Empenho', class: 'custom-control-label', for: 'empenho' %>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input id="debit" name="payment_method" value="debit" type="radio" class="custom-control-input">
-                  <label class="custom-control-label" for="debit">Depósito bancário</label>
+                  <%= f.radio_button :payment_type, 'pix', class: 'custom-control-input', id: 'pix' %>
+                  <%= f.label :payment_type, 'PIX', class: 'custom-control-label', for: 'pix' %>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input id="cash" name="payment_method" value="cash" type="radio" class="custom-control-input">
-                  <label class="custom-control-label" for="cash">Dinheiro a vista</label>
+                  <%= f.radio_button :payment_type, 'debit', class: 'custom-control-input', id: 'debit' %>
+                  <%= f.label :payment_type, 'Depósito bancário', class: 'custom-control-label', for: 'debit' %>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input id="credit" name="payment_method" value="credit" type="radio" class="custom-control-input" data-bs-toggle="modal" data-bs-target="#showTaxCreditCard">
-                  <label class="custom-control-label" for="credit">Cartão de Crédito</label>
+                  <%= f.radio_button :payment_type, 'cash', class: 'custom-control-input', id: 'cash' %>
+                  <%= f.label :payment_type, 'Dinheiro a vista', class: 'custom-control-label', for: 'cash' %>
+                </div>
+                <div class="custom-control custom-radio">
+                  <%= f.radio_button :payment_type, 'credit', class: 'custom-control-input', id: 'credit', data: { bs_toggle: "modal", bs_target: "#showTaxCreditCard" } %>
+                  <%= f.label :payment_type, 'Cartão de Crédito', class: 'custom-control-label', for: 'credit' %>
                   <div class="modal fade" id="showTaxCreditCard" tabindex="-1" aria-labelledby="showTaxCreditCardLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -61,19 +66,23 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                          Para o Cartão de Crédito será disponilizado em <strong>até 2 vezes</strong>, com os respectivos valores: <br>
+                          Para o Cartão de Crédito será disponilizado em <strong>até 3 vezes</strong>, com os respectivos valores: <br>
                           <br>
                           <div class="custom-control custom-radio">
                             <label class="custom-control-label d-inline-block" for="credit_1">
-                              1x: R$ 2.500,00
+                              1x: R$ <%= mask_money(@event.value) %>
                             </label>
                           </div>
                           <div class="custom-control custom-radio">
                             <label class="custom-control-label d-inline-block" for="credit_2">
-                              2x R$ 1.345,50 - Total parcelado R$ 2.691,00
+                              2x R$ <%= mask_money((@event.value * (7.64/100) + @event.value) / 2)%> - Total parcelado <%= mask_money(@event.value * (7.64/100) + @event.value) %>
                             </label>
                           </div>
-                          <strong> </strong>
+                          <div class="custom-control custom-radio">
+                            <label class="custom-control-label d-inline-block" for="credit_2">
+                              3x R$ <%= mask_money((@event.value * (9.23/100) + @event.value) / 3)%> - Total parcelado <%= mask_money(@event.value * (9.23/100) + @event.value) %>
+                            </label>
+                          </div>
                         </div>
                         <div class="modal-footer justify-content-center">
                           <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
@@ -125,7 +134,10 @@
                   <span class="input-group-text">
                     <i class="mdi mdi-barcode mdi-18px"></i>
                   </span>
-                  <%= f.text_field :cpf, class: 'cpf form-control', placeholder: 'Informe o CPF', value: params[:cpf], required: true %>
+                  <%= f.text_field :cpf,
+                                   class: 'cpf form-control',
+                                   placeholder: 'Informe o CPF',
+                                   value: params[:cpf], required: true %>
                 </div>
               </div>
               <div class="col-md-6">
@@ -197,8 +209,8 @@
                     <i class="mdi mdi-map mdi-18px"></i>
                   </span>
                   <%= f.collection_select(:state, @states, :abbreviation, :name,
-                                         { include_blank: 'Selecione uma das alternativas' },
-                                         { class: "form-select", required: true, selected: params[:state] }) %>
+                                          { include_blank: 'Selecione uma das alternativas' },
+                                          { class: "form-select", required: true, selected: params[:state] }) %>
                 </div>
               </div>
               <div class="col-md-6">
@@ -243,36 +255,36 @@
   <% end %>
 </div>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var stateSelect = document.querySelector("#user_state");
-    if(stateSelect) {
-      stateSelect.value = '<%= params[:state] %>';
-    }
-  });
+    document.addEventListener("DOMContentLoaded", function() {
+        var stateSelect = document.querySelector("#state");
+        if(stateSelect) {
+            stateSelect.value = '<%= params[:state] %>';
+        }
+    });
 </script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const doneSubscriptionBtn = document.getElementById('doneSubscriptionBtn');
-    const inputs = document.querySelectorAll('input[required], select[required], textarea[required]:not(#complement_address)');
+    document.addEventListener("DOMContentLoaded", function() {
+        const doneSubscriptionBtn = document.getElementById('doneSubscriptionBtn');
+        const inputs = document.querySelectorAll('input[required], select[required], textarea[required]:not(#complement_address)');
 
-    function checkFormFields() {
-      let allFilled = true;
-      inputs.forEach(function(input) {
-        if (!input.value.trim()) {
-          allFilled = false;
-          input.classList.add('is-invalid');
-        } else {
-          input.classList.remove('is-invalid');
+        function checkFormFields() {
+            let allFilled = true;
+            inputs.forEach(function(input) {
+                if (!input.value.trim()) {
+                    allFilled = false;
+                    input.classList.add('is-invalid');
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+            doneSubscriptionBtn.disabled = !allFilled;
         }
-      });
-      doneSubscriptionBtn.disabled = !allFilled;
-    }
 
-    inputs.forEach(function(input) {
-      input.addEventListener('change', checkFormFields);
-      input.addEventListener('keyup', checkFormFields);
+        inputs.forEach(function(input) {
+            input.addEventListener('change', checkFormFields);
+            input.addEventListener('keyup', checkFormFields);
+        });
+
+        checkFormFields();
     });
-
-    checkFormFields();
-  });
 </script>

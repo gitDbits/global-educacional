@@ -1,9 +1,24 @@
 pt:
   payment_method:
+    empenho: 'Empenho'
     cash: 'Dinheiro'
     debit: 'Déposito bancário'
     credit: 'Cartão de Crédito'
     pix: 'Pix'
+  days_weekend:
+    sunday: 'Domingo'
+    monday: 'Segunda'
+    tuesday: 'Terça'
+    wednesday: 'Quarta'
+    thursday: 'Quinta'
+    friday: 'Sexta'
+    saturday: 'Sábado'
+
+  date:
+    day_names: [ Domingo, Segunda-feira, Terça-feira, Quarta-feira, Quinta-feira, Sexta-feira, Sábado ]
+    abbr_day_names: [ Dom, Seg, Ter, Qua, Qui, Sex, Sáb ]
+    abbr_month_names: [ Dezembro, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro ]
+    month_names: [ Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro ]
     
   email_address:
     address_unknown: "Endereço de e-mail desconhecido"
@@ -131,6 +146,7 @@ pt:
             phone:
               blank: 'não informado'
             email:
+              blank: 'não informado'
               taken: 'já está em uso'
               not_found: "informado não cadastrado, verifique as informações."
             password:

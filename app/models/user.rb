@@ -2,6 +2,8 @@
 
 # User
 class User < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :slugged
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,8 +12,11 @@ class User < ApplicationRecord
   validates_with EmailAddress::ActiveRecordValidator, field: :email, if: -> { email.present? }
 
   validate :validate_cpf, on: :create
-  validate :validate_uniqueness_fields
-  enum payment_status: { paid: 'Pago', document_paid: 'Empenhado', document_bonus: 'Bônus' }
+  # validate :validate_uniqueness_fields
+
+  has_many :subscription_events
+  has_many :events, through: :subscription_events
+
   translated_enums :gender
 
   private

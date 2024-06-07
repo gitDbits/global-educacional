@@ -15,17 +15,14 @@ Rails.application.routes.draw do
     get 'courses/public_management'
     get 'courses/pedagogy'
     get '/cep/:zipcode', to: 'cep#show'
+    get 'events/:id', to: 'portal/events#show', as: 'event'
+    get 'events/:id/checkout', to: 'portal/events#checkout', as: 'event_checkout'
+    get 'events', to: 'portal/events#index', as: 'events'
 
     namespace :portal do # rubocop:disable Metrics/BlockLength
       get 'home', to: 'home#home'
 
-      resources :events do
-        # get :checkout
-      end
-
       resources :users, only: %i[show edit create update] do
-        get :voucher
-
         collection do
           get :award
           get :report_participants
@@ -39,6 +36,10 @@ Rails.application.routes.draw do
         collection do
           match 'search_institution' => 'institution#institution', via: %i[get post], as: :search_institution
         end
+      end
+
+      resources :subscription_events do
+        get :voucher
       end
     end
   end

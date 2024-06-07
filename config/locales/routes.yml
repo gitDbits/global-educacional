@@ -20,5 +20,6 @@ pt:
     report_id_paper: etiqueta_participantes
     report_list_presence: lista_presenca
     award: premiacao
+    subscription_events: inscricao_evento
 
     
