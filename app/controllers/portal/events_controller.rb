@@ -3,7 +3,7 @@
 module Portal
   # EventsController
   class EventsController < ApplicationController
-    skip_before_action :authenticate_user!
+    skip_before_action :authenticate_user!, except: [:collection]
 
     layout :resolve_layout
 
@@ -12,7 +12,12 @@ module Portal
     def new; end
 
     def index
-      @events = Event.all
+      @events = Event.where(open_subscription: true)
+    end
+
+    def collection
+      @q = Event.order(id: :desc).ransack(params[:q])
+      @pagy, @events = pagy(@q.result(distinct: true))
     end
 
     def show
@@ -68,6 +73,8 @@ module Portal
         'portal_detail'
       when 'checkout'
         'portal_event_checkout'
+      when 'collection'
+        'admin_detail'
       else
         'portal'
       end

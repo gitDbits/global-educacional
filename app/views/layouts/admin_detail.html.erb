@@ -33,19 +33,24 @@
             <ul id="sidebarnav">
               <li class="nav-small-cap">
                 <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                <span class="hide-menu">HOME</span>
+                <span class="hide-menu">MENU</span>
               </li>
               <li class="sidebar-item">
                 <%= link_to portal_home_pt_path, class: 'sidebar-link' do %>
                   <span><i class="ti ti-home"></i></span>
                   <span class="hide-menu">Início</span>
                 <% end %>
+                <%= link_to collection_portal_events_pt_path, class: 'sidebar-link' do %>
+                  <span><i class="ti ti-ticket"></i></span>
+                  <span class="hide-menu">Eventos</span>
+                <% end %>
                 <%= link_to award_portal_users_pt_path, class: 'sidebar-link' do %>
                   <span><i class="mdi mdi-medal mdi-18px"></i></span>
                   <span class="hide-menu">Sorteador</span>
                 <% end %>
-                <%= link_to 'Lista de presença', class: 'sidebar-link', data: { bs_toggle: "modal", bs_target: "#reportListPresence" } do %>
-                  <i class="fs-4 ti ti-printer"></i> Relatório Lista de Presença
+                <%= link_to 'Teste', class: 'sidebar-link', data: { bs_toggle: "modal", bs_target: "#reportListPresence" } do %>
+                  <i class="fs-4 ti ti-printer"></i>
+                  <span class="hide-menu">Relatório Lista de Presença</span>
                 <% end %>
               </li>
             </ul>

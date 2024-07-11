@@ -2,12 +2,21 @@
 
 module Portal
   class SubscriptionEventsController < ApplicationController
-    skip_before_action :authenticate_user!
+    skip_before_action :authenticate_user!, except: %i[index search_subscription_event]
     before_action :set_subscription_event, only: [:voucher]
+
+    layout 'admin'
 
     def new
       @subscription_event = SubscriptionEvent.new
       @event = Event.find(params[:event_id])
+    end
+
+    def index
+      @event = Event.find(params[:event_id])
+
+      @q = SubscriptionEvent.where(event: @event).order(id: :desc).ransack(params[:q])
+      @pagy, @subscription_events = pagy(@q.result(distinct: true))
     end
 
     def create

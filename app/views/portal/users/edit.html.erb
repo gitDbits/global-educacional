@@ -25,32 +25,6 @@
     <div class="col-md-12">
       <div class="row">
         <div class="col-md-6">
-          <label class="form-label" for="user_name"><strong>Orgão</strong></label>
-          <div class="input-group mb-2">
-            <span class="input-group-text">
-              <i class="mdi mdi-domain mdi-18px"></i>
-            </span>
-            <%= f.collection_select :institution, 
-                                    [['Câmara Municipal', 'Câmara Municipal'], ['Prefeitura', 'Prefeitura']], 
-                                    :last, :first, 
-                                    {include_blank: 'Selecione o órgão'}, 
-                                    {required: true, class: "form-select"} %>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label" for="user_name"><strong>Forma de pagamento</strong></label>
-          <div class="input-group mb-2">
-            <span class="input-group-text">
-              <i class="mdi mdi-cash mdi-18px"></i>
-            </span>
-            <%= f.collection_select :payment_method, 
-                                    [['PIX', 'pix'], ['Déposito bancário', 'debit'], ['Cartão de crédito', 'credit'], ['Dinheiro', 'cash']], 
-                                    :last, :first, 
-                                    {include_blank: 'Selecione o órgão'}, 
-                                    {required: true, class: "form-select"} %>
-          </div>
-        </div>
-        <div class="col-md-6">
           <label class="form-label" for="user_name"><strong>Nome completo</strong></label>
           <div class="input-group mb-2">
             <span class="input-group-text">

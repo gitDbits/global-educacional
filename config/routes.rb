@@ -40,6 +40,18 @@ Rails.application.routes.draw do
 
       resources :subscription_events do
         get :voucher
+
+        collection do
+          match 'search_subscription_event' => 'subscription_events#subscription_event', via: %i[get post], as: :search_subscription_event
+        end
+      end
+
+      resources :events do
+        get :collection, on: :collection
+
+        collection do
+          match 'search_event' => 'events#event', via: %i[get post], as: :search_event
+        end
       end
     end
   end
