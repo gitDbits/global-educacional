@@ -91,6 +91,11 @@
           </th>
           <th>
             <h6 class="fs-4 fw-semibold mb-0">
+              <%= sort_link(@q, :city, 'Município', data: { turbo: false })  %>
+            </h6>
+          </th>
+          <th>
+            <h6 class="fs-4 fw-semibold mb-0">
               <%= sort_link(@q, :created_at, 'Data inscrição', data: { turbo: false })  %>
             </h6>
           </th>
@@ -143,6 +148,9 @@
               <% else %>
                 <span class="badge rounded-pill bg-danger-subtle text-danger fw-semibold fs-2">Pendente</span>
               <% end %>
+            </td>
+            <td>
+              <%= subscription_event.user.city %>
             </td>
             <td><%= subscription_event.created_at.strftime('%d/%m/%Y %H:%M:%S') %></td>
             <td>
