@@ -22,6 +22,13 @@ module Portal
     def create
       @user = User.find_or_initialize_by(cpf: CPF.new(params[:subscription_event][:cpf]).stripped)
 
+      if SubscriptionEvent.find_by(user: @user, event_id: params.dig(:subscription_event, :event_id)).present?
+        flash[:error] = 'Atenção este CPF já está cadastrado neste evento, caso tenha alguma dúvida entre em contato (69) 99272-9043'
+        @selected_state = params[:subscription_event][:state]
+
+        return redirect_to event_checkout_pt_path(params.dig(:subscription_event, :event_id), user_params)
+      end
+
       if @user.new_record?
         @user.assign_attributes(
           name: params[:subscription_event][:name],

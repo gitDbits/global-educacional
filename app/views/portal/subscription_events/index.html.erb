@@ -81,11 +81,6 @@
           </th>
           <th>
             <h6 class="fs-4 fw-semibold mb-0">
-              <%= sort_link(@q, :phone, 'Telefone', data: { turbo: false })  %>
-            </h6>
-          </th>
-          <th>
-            <h6 class="fs-4 fw-semibold mb-0">
               <%= sort_link(@q, :payment_method, 'Forma de pagamento', data: { turbo: false })  %>
             </h6>
           </th>
@@ -136,9 +131,6 @@
             </td>
             <td>
               <p class="mb-0 fw-normal fs-4"><%= mask_cpf(subscription_event.user.cpf) %></p>
-            </td>
-            <td>
-              <p class="mb-0 fw-normal fs-4"><%= subscription_event.user.phone %></p>
             </td>
             <td>
               <span class="badge rounded-pill bg-success-subtle text-success fw-semibold fs-2"><%= I18n.t("payment_method.#{subscription_event.payment_type}") %> <%= mask_money(subscription_event.event.value) %></span>
