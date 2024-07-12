@@ -98,7 +98,7 @@
       </div>
     </div>
     <div class="col-3">
-      <%= link_to report_participants_portal_users_pt_path(event_id: @event.id), format: :pdf, data: { turbo: false } do %>
+      <%= link_to report_participants_portal_users_pt_path(event_id: @event.id, format: :pdf), data: { turbo: false } do %>
         <div class="card border-0 zoom-in bg-secondary-subtle shadow-none">
           <div class="card-body">
             <div class="text-center">
