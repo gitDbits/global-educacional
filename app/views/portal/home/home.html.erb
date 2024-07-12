@@ -1,21 +1,21 @@
 <div class="container">
   <h4 class="mb-4"><i class="ti ti-ticket"></i> Eventos em aberto</h4>
-  <% @events.order(:name).each do |event| %>
     <div class="row">
-      <%= link_to portal_subscription_events_path(event_id: event.id), data: { turbo: false } do %>
-        <div class="col-4">
-          <div class="card border-0 zoom-in bg-success-subtle shadow-none">
-            <div class="card-body">
-              <div class="text-center">
-                <i class="icon ti ti-ticket fs-9"></i>
-                <p class="fw-semibold fs-3 text-primary mb-4"><%= event.name %></p>
-                <h5 class="fw-semibold text-primary mb-0"><%= SubscriptionEvent.where(event: event).count %></h5>
-                <p class="fw-semibold fs-3 text-primary mb-1">Participantes inscritos</p>
+      <% @events.order(:name).each do |event| %>
+        <%= link_to portal_subscription_events_path(event_id: event.id), data: { turbo: false } do %>
+          <div class="col-4">
+            <div class="card border-0 zoom-in bg-success-subtle shadow-none">
+              <div class="card-body">
+                <div class="text-center">
+                  <i class="icon ti ti-ticket fs-9"></i>
+                  <p class="fw-semibold fs-3 text-primary mb-4"><%= event.name %></p>
+                  <h5 class="fw-semibold text-primary mb-0"><%= SubscriptionEvent.where(event: event).count %></h5>
+                  <p class="fw-semibold fs-3 text-primary mb-1">Participantes inscritos</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
-  <% end %>
 </div>
