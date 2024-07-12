@@ -29,9 +29,9 @@ module Portal
 
     def report_participants
       @event = Event.find(params[:event_id])
-      @user_ids = SubscriptionEvent.where(event: @event).pluck(:user_id)
+      @users = SubscriptionEvent.where(event: @event).pluck(:user_id)
 
-      @users_by_city = User.where(id: @user_ids ).group_by(&:city).transform_values do |users|
+      @users_by_city = User.where(id: @users ).group_by(&:city).transform_values do |users|
         users.sort_by { |user| user.name }
       end
 
@@ -43,7 +43,7 @@ module Portal
                  show_as_html: params.key?('debug'),
                  footer: { right: '[page]',
                            margin: { bottom: 10 } },
-                 locals: { users: @users }
+                 locals: { users: @users, event: @event }
         end
       end
     end
@@ -85,7 +85,6 @@ module Portal
     end
 
     def award
-      debugger
       @award_user = User.where(admin: nil)
     end
 
