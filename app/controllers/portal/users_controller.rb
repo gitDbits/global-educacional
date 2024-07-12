@@ -28,8 +28,6 @@ module Portal
     def create; end
 
     def report_participants
-      debugger
-
       @event = Event.find(params[:event_id])
       @user_ids = SubscriptionEvent.where(event: @event).pluck(:user_id)
 
