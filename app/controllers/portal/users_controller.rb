@@ -28,9 +28,12 @@ module Portal
     def create; end
 
     def report_participants
-      @event = Event.first
+      debugger
 
-      @users_by_city = User.where(admin: nil).group_by(&:city).transform_values do |users|
+      @event = Event.find(params[:event_id])
+      @user_ids = SubscriptionEvent.where(event: @event).pluck(:user_id)
+
+      @users_by_city = User.where(id: @user_ids ).group_by(&:city).transform_values do |users|
         users.sort_by { |user| user.name }
       end
 
@@ -84,6 +87,7 @@ module Portal
     end
 
     def award
+      debugger
       @award_user = User.where(admin: nil)
     end
 

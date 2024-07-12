@@ -64,7 +64,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-4">
+    <div class="col-3">
       <div class="card border-0 zoom-in bg-danger-subtle shadow-none">
         <div class="card-body">
           <div class="text-center">
@@ -75,7 +75,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <div class="card border-0 zoom-in bg-warning-subtle shadow-none">
         <div class="card-body">
           <div class="text-center">
@@ -86,7 +86,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <div class="card border-0 zoom-in bg-primary-subtle shadow-none">
         <div class="card-body">
           <div class="text-center">
@@ -96,6 +96,18 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="col-3">
+      <%= link_to report_participants_portal_users_pt_path(event_id: @event.id), format: :pdf, data: { turbo: false } do %>
+        <div class="card border-0 zoom-in bg-secondary-subtle shadow-none">
+          <div class="card-body">
+            <div class="text-center">
+              <i class="icon ti ti-printer fs-9"></i>
+              <h5 class="fw-semibold text-secondary mb-0">Relatório de participantes</h5>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="card-body p-4">
