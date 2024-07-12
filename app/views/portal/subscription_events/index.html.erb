@@ -46,7 +46,7 @@
                     </div>
                     <div class="input-group mb-4">
                       <span class="input-group-text px-6"><i class="ti ti-map-pin fs-6"></i></span>
-                      <%= f.select :user_city_eq, options_for_select(User.distinct.pluck(:city).compact), { include_blank: 'Buscar por município' }, class: 'form-control ps-2 city' %>
+                      <%= f.select :user_city_eq, options_for_select(User.order(:city).distinct.pluck(:city).compact), { include_blank: 'Buscar por município' }, class: 'form-control ps-2 city' %>
                     </div>
                     <div class="col-12 text-center mt-2 pt-50">
                       <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Buscar</button>
