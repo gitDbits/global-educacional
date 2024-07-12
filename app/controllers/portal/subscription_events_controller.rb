@@ -2,8 +2,8 @@
 
 module Portal
   class SubscriptionEventsController < ApplicationController
-    skip_before_action :authenticate_user!, except: %i[index search_subscription_event]
-    before_action :set_subscription_event, only: [:voucher]
+    skip_before_action :authenticate_user!, except: %i[index search_subscription_event update clear_filters]
+    before_action :set_subscription_event, only: %i[voucher update]
 
     layout 'admin'
 
@@ -13,7 +13,12 @@ module Portal
     end
 
     def index
-      @event = Event.find(params[:event_id])
+      if params[:action] == 'subscription_event'
+        @event = Event.find(params.dig(:q, :event_id))
+      else
+        @event = Event.find(params[:event_id])
+      end
+
 
       @q = SubscriptionEvent.where(event: @event).order(id: :desc).ransack(params[:q])
       @pagy, @subscription_events = pagy(@q.result(distinct: true))
@@ -102,6 +107,16 @@ module Portal
       end
     end
 
+    def update
+      if @subscription_event.update(subscription_event_params)
+        flash[:success] = 'Os dados foram atualizados com sucesso'
+        redirect_to portal_subscription_events_pt_path(event_id: params.dig(:subscription_event, :event_id))
+      else
+        flash[:error] = 'Não foi possível atualizar os dados'
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
     def voucher
       respond_to do |format|
         format.pdf do
@@ -120,10 +135,19 @@ module Portal
       generate_qrcode("https://globaleducacional.com.br/portal/inscricao_evento/#{subscription_event.id}")
     end
 
+    def subscription_event
+      index
+      render(:index)
+    end
+
+    def clear_filters
+      redirect_to portal_subscription_events_pt_path(event_id: params[:event_id])
+    end
+
     private
 
     def subscription_event_params
-      params.require(:subscription_event).permit(:event_id, :payment_type)
+      params.require(:subscription_event).permit(:event_id, :payment_type, :payment_status, :paid_note)
     end
 
     def user_params
@@ -131,7 +155,11 @@ module Portal
     end
 
     def set_subscription_event
-      @subscription_event = SubscriptionEvent.find(params[:subscription_event_id])
+      if params[:action] == 'update'
+        @subscription_event = SubscriptionEvent.find(params[:id])
+      else
+        @subscription_event = SubscriptionEvent.find(params[:subscription_event_id])
+      end
     end
   end
 end

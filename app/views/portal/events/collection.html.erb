@@ -2,7 +2,9 @@
   <div class="card w-100 position-relative overflow-hidden">
     <div class="px-4 py-3 border-bottom">
       <div class="d-flex justify-content-between align-items-center">
-        <h5 class="card-title fw-semibold mb-0 lh-sm"><i class="icon ti ti-ticket"></i> Lista de eventos</h5>
+        <h5 class="card-title fw-semibold mb-0 lh-sm">
+          <i class="icon ti ti-ticket"></i> Lista de eventos
+        </h5>
         <div class="d-flex align-items-center">
           <%= search_form_for [:portal, @q], url: search_event_portal_events_pt_path, html: { method: :post, data: { turbo: false } } do |f| %>
             <div class="input-group">
@@ -39,6 +41,11 @@
           </th>
           <th>
             <h6 class="fs-4 fw-semibold mb-0">
+              <%= sort_link(@q, :status, 'Status', data: { turbo: false })  %>
+            </h6>
+          </th>
+          <th>
+            <h6 class="fs-4 fw-semibold mb-0">
               Ações
             </h6>
           </th>
@@ -52,6 +59,13 @@
             </td>
             <td>
               <p class="mb-0 fw-normal fs-4"><%= event.name %></p>
+            </td>
+            <td>
+              <% if event.open_subscription %>
+                <span class="badge rounded-pill bg-success-subtle text-success fw-semibold fs-2">Em aberto</span>
+              <% else %>
+                <span class="badge rounded-pill bg-danger-subtle text-danger fw-semibold fs-2">Encerrado</span>
+              <% end %>
             </td>
             <td>
               <div class="dropdown dropstart">

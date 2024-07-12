@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
         collection do
           match 'search_subscription_event' => 'subscription_events#subscription_event', via: %i[get post], as: :search_subscription_event
+          get 'clear_filters'
         end
       end
 

@@ -5,8 +5,6 @@ class SubscriptionEvent < ApplicationRecord
 
   validates :payment_type, presence: true
 
-  enum payment_status: { paid: 'Pago', document_paid: 'Empenhado', document_bonus: 'Bônus' }
-
   private
 
   def self.ransackable_attributes(auth_object = nil)

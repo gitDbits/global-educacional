@@ -8,12 +8,11 @@
         </h5>
         <div class="d-flex align-items-center">
           <%= search_form_for [:portal, @q], url: search_subscription_event_portal_subscription_events_pt_path, html: { method: :post, data: { turbo: false } } do |f| %>
+            <%= f.hidden_field :event_id, value: @event.id %>
             <div class="input-group">
-              <%= f.search_field :name_or_cnpj_cont, class: 'form-control', placeholder: 'Buscar', value: "#{params.dig(:q, :name_cont)}" %>
+              <%= f.search_field :user_name_cont, class: 'form-control', placeholder: 'Buscar', value: "#{params.dig(:q, :name_cont)}" %>
               <% if params[:q].present? %>
-                <%= clear_filter title: 'Limpar busca', class: 'btn btn-primary rounded-end', data: { turbo: false } do %>
-                  <i class="mdi mdi-eye-off-outline"></i>
-                <% end %>
+                <%= link_to 'Limpar filtro', clear_filters_portal_subscription_events_path(event_id: @event.id), class: 'btn btn-primary rounded-end' %>
               <% else %>
                 <button class="btn btn-primary rounded-end" type="submit">
                   <i class="ti ti-search"></i>
@@ -36,17 +35,22 @@
                 <div class="modal-body">
                   <%= search_form_for [:portal, @q], url: search_subscription_event_portal_subscription_events_pt_path,
                                       html: { method: :post, data: { turbo: false } } do |f| %>
+                    <%= f.hidden_field :event_id, value: @event.id %>
                     <div class="input-group mb-4">
-                      <span class="input-group-text px-6"><i class="ti ti-barcode fs-6"></i></span>
+                      <span class="input-group-text px-6"><i class="ti ti-user fs-6"></i></span>
                       <%= f.text_field :user_name_cont, class: 'form-control ps-2 name', placeholder: 'Buscar pelo nome participante' %>
                     </div>
                     <div class="input-group mb-4">
                       <span class="input-group-text px-6"><i class="ti ti-phone fs-6"></i></span>
                       <%= f.text_field :user_phone_cont, class: 'form-control ps-2 sp_celphones', placeholder: 'Buscar pelo telefone' %>
                     </div>
+                    <div class="input-group mb-4">
+                      <span class="input-group-text px-6"><i class="ti ti-map-pin fs-6"></i></span>
+                      <%= f.select :user_city_eq, options_for_select(User.distinct.pluck(:city).compact), { include_blank: 'Buscar por município' }, class: 'form-control ps-2 city' %>
+                    </div>
                     <div class="col-12 text-center mt-2 pt-50">
                       <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Buscar</button>
-                      <%= clear_filter title: 'Limpar filtro', class: 'btn bg-danger-subtle text-danger waves-effect' %>
+                      <%= link_to 'Limpar filtro', clear_filters_portal_subscription_events_path(event_id: @event.id), data: { turbo: false }, class: 'btn bg-danger-subtle text-danger waves-effect' %>
                     </div>
                     </div>
                     </div>
@@ -54,6 +58,41 @@
                   <div class="modal-footer">
                   </div>
                   </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <div class="card border-0 zoom-in bg-danger-subtle shadow-none">
+        <div class="card-body">
+          <div class="text-center">
+            <i class="icon ti ti-ticket fs-9"></i>
+            <h5 class="fw-semibold text-danger mb-0"><%= SubscriptionEvent.where(event: @event).count %></h5>
+            <p class="fw-semibold fs-3 text-danger mb-1">Inscrições pendentes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card border-0 zoom-in bg-warning-subtle shadow-none">
+        <div class="card-body">
+          <div class="text-center">
+            <i class="icon ti ti-ticket fs-9"></i>
+            <h5 class="fw-semibold text-warning mb-0"><%= SubscriptionEvent.where(event: @event).count %></h5>
+            <p class="fw-semibold fs-3 text-warning mb-1">Participantes empenhados</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card border-0 zoom-in bg-primary-subtle shadow-none">
+        <div class="card-body">
+          <div class="text-center">
+            <i class="icon ti ti-ticket fs-9"></i>
+            <h5 class="fw-semibold text-primary mb-0"><%= "10" %></h5>
+            <p class="fw-semibold fs-3 text-primary mb-1">Participantes pagos</p>
           </div>
         </div>
       </div>
@@ -141,9 +180,9 @@
               <span class="badge rounded-pill bg-success-subtle text-success fw-semibold fs-2"><%= I18n.t("payment_method.#{subscription_event.payment_type}") %> <%= mask_money(subscription_event.event.value) %></span>
             </td>
             <td>
-              <% if subscription_event.payment_status == 'paid' %>
+              <% if subscription_event.payment_status == 'pago' %>
                 <span class="badge rounded-pill bg-info-subtle text-info fw-semibold fs-2">Pago</span>
-              <% elsif subscription_event.payment_status == 'document_paid' %>
+              <% elsif subscription_event.payment_status == 'empenhado' %>
                 <span class="badge rounded-pill bg-warning-subtle text-warning fw-semibold fs-2">Empenhado</span>
               <% else %>
                 <span class="badge rounded-pill bg-danger-subtle text-danger fw-semibold fs-2">Pendente</span>
@@ -164,13 +203,14 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <%= form_with model: [:portal, subscription_event], url: portal_subscription_event_pt_path(subscription_event), method: :put, data: { turbo: false }, class: '' do |f| %>
+                      <%= f.hidden_field :event_id, value: subscription_event.event.id %>
                       <div class="modal-body">
                         <label class="mb-2" for="">
                           <strong>Status do pagamento</strong>
                         </label>
                         <div class="input-group mb-4">
                           <span class="input-group-text px-6"><i class="ti ti-cash fs-6"></i></span>
-
+                          <%= f.select :payment_status, [['Pendente', 'pendente'], ['Empenhado', 'empenhado'], ['Pago', 'pago']], {}, class: 'form-control ps-2' %>
                         </div>
                         <label class="mb-2" for="">
                           <strong>Observações sobre pagamento</strong>
