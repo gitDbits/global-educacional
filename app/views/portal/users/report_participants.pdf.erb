@@ -53,9 +53,9 @@
                     <td><%= user.phone %></td>
                     <td><%= user.institution.blank? ? 'Não informado' : user.institution %></td>
                     <td><%= city %></td>
-                    <td><%= I18n.t("payment_method.#{SubscriptionEvent.find(user_id: user.id).payment_type}") %></td>
+                    <td><%= I18n.t("payment_method.#{SubscriptionEvent.find_by(user_id: user.id).payment_type}") %></td>
                     <td>
-                      <% if SubscriptionEvent.find(user_id: user.id).payment_status == 'pago' %>
+                      <% if SubscriptionEvent.find_by(user_id: user.id).payment_status == 'pago' %>
                         <strong><span class="text-success">Pago</span></strong>
                       <% elsif user.payment_status == 'empenhado' %>
                         <strong><span class="text-info">Empenhado</span></strong>
@@ -63,7 +63,7 @@
                         <strong><span class="text-danger">Pendente</span></strong>
                       <% end %>
                     </td>
-                    <td><%= SubscriptionEvent.find(user_id: user.id).created_at.strftime('%d/%m/%Y %H:%M:%S') %></td>
+                    <td><%= SubscriptionEvent.find_by(user_id: user.id).created_at.strftime('%d/%m/%Y %H:%M:%S') %></td>
                   </tr>
                 <% end %>
               </tbody>
@@ -97,7 +97,7 @@
                     <div class="text-center">
                       <i class="icon ti ti-users fs-9"></i>
                       <p class="fw-semibold fs-3 text-success mb-1">Participantes pagos</p>
-                      <h5 class="fw-semibold text-success mb-0"><%= UserSubscriptionEvent.joins(:user).where(event: event, users: { city: city }, payment_status: 'pago').count %></h5>
+                      <h5 class="fw-semibold text-success mb-0"><%= SubscriptionEvent.joins(:user).where(event: event, users: { city: city }, payment_status: 'pago').count %></h5>
                     </div>
                   </div>
                 </div>
