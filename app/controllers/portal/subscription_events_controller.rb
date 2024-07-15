@@ -69,8 +69,6 @@ module Portal
         @subscription_event.user = @user
         @subscription_event.payment_status = 'pendente'
 
-        debugger
-
         if @subscription_event.save
           flash[:notice] = 'Sua inscrição foi realizada com sucesso, entre em contato pelo nosso WhatsApp (69) 99272-9043 para finalizar o seu pagamento.'
           message_whatsapp = "
