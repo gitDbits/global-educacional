@@ -1,0 +1,36 @@
+<div class="row text-center">
+  <div class="col-12 mb-6 mt-4">
+    <img src="https://globaleducacional.com.br/assets/img/logo/logo.png" style=''  alt="Global Educacional" />
+    <% if params[:number].present? %>
+      <h4 class="mt-4"><%= @event.name %></h4>
+      <h1 class="mt-4">Resultado do sorteio!</h1>
+      <h2 class="mt-4">Parabéns!</h2>
+      <div class="col-md-12">
+        <button type="button" class="btn btn-warning btn-lg mt-4 animate__animated animate__bounce">
+          <h1 class="text-white">Número inscrição: <%= params[:number] %> </h1>
+          <h1 class="text-white">Nome: <%= User.find(params[:number]).name %></h1>
+          <h1 class="text-white">Cidade: <%= User.find(params[:number]).city %></h1>
+        </button>
+        <%= link_to portal_subscription_event_award_pt_path(@event), data: { turbo: false }, class: '' do %>
+          <div class="col-md-12">
+            <button type="button" class="btn btn-primary btn-lg mt-4 animate__animated animate__bounce">
+              <h1 class="text-white">REALIZAR UM NOVO SORTEIO!</h1>
+            </button>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <h4 class="mt-4"><%= @event.name %></h4>
+      <h1 class="mt-4">Fique de olho no seu número de inscrição</h1>
+      <div class="col-md-12">
+        <%= link_to portal_subscription_event_award_pt_path(@event, number: @award_user.ids.sample), data: { turbo: false }, class: '' do %>
+          <div class="col-md-12">
+            <button type="button" class="btn btn-primary btn-lg mt-4 animate__animated animate__bounce">
+              <h1 class="text-white">SORTEAR AGORA!</h1>
+            </button>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

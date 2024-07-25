@@ -24,7 +24,6 @@ Rails.application.routes.draw do
 
       resources :users, only: %i[show edit create update] do
         collection do
-          get :award
           get :report_participants
           get :report_id_paper
           get :report_list_presence
@@ -40,6 +39,7 @@ Rails.application.routes.draw do
 
       resources :subscription_events do
         get :voucher
+        get :award
 
         collection do
           match 'search_subscription_event' => 'subscription_events#subscription_event', via: %i[get post], as: :search_subscription_event

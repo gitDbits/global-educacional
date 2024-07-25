@@ -84,10 +84,6 @@ module Portal
       end
     end
 
-    def award
-      @award_user = User.where(admin: nil)
-    end
-
     private
 
     def set_user

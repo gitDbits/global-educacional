@@ -145,6 +145,12 @@ module Portal
       redirect_to portal_subscription_events_pt_path(event_id: params[:event_id])
     end
 
+    def award
+      @event = Event.friendly.find(params[:subscription_event_id])
+
+      @award_user =  User.joins(:subscription_events).where(subscription_events: { event_id: @event.id })
+    end
+
     private
 
     def subscription_event_params
