@@ -151,6 +151,32 @@ module Portal
       @award_user =  User.joins(:subscription_events).where(subscription_events: { event_id: @event.id })
     end
 
+    def report_list_presence
+      @event = Event.find(params[:event_id])
+      @event_date = params[:event_date]
+      @start_time = params[:start_time]
+      @end_time = params[:end_time]
+
+      @users = SubscriptionEvent.where(event: @event).pluck(:user_id)
+
+      @users_by_city = User.where(id: @users ).group_by(&:city).transform_values do |users|
+        users.sort_by { |user| user.name }
+      end
+
+      respond_to do |format|
+        format.pdf do
+          render pdf: "lista-participante-#{@event.name}",
+                 margin: { left: 15, right: 15, bottom: 15 },
+                 orientation: 'Landscape',
+                 show_as_html: params.key?('debug'),
+                 footer: { right: '[page]',
+                           margin: { bottom: 10 } },
+                 locals: { users: @users, event: @event, event_date: @event_date,
+                           start_time: @start_time, end_time: @end_time }
+        end
+      end
+    end
+
     private
 
     def subscription_event_params

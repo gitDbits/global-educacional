@@ -103,7 +103,7 @@
           <div class="card-body">
             <div class="text-center">
               <i class="icon ti ti-printer fs-9"></i>
-              <h5 class="fw-semibold text-secondary mb-0">Relatório de participantes</h5>
+              <h5 class="fw-semibold text-secondary mb-0">Lista de inscrições</h5>
             </div>
           </div>
         </div>
@@ -123,6 +123,55 @@
         </div>
       </div>
     <% end %>
+  </div>
+  <div class="col-3">
+    <%= link_to '',
+                data: { bs_toggle: "modal", bs_target: "#reportListPresence" }, class: 'sidebar-link' do %>
+      <div class="card border-0 zoom-in bg-warning-subtle shadow-none">
+        <div class="card-body">
+          <div class="text-center">
+            <i class="icon ti ti-printer fs-9"></i>
+            <h5 class="fw-semibold text-warning mb-0">
+              <span class="hide-menu">Lista de Presença</span>
+            </h5>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div id="reportListPresence" class="modal fade" tabindex="-1" aria-labelledby="reportListPresence" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h4 class="modal-title" id="filterUserLabel">
+              Selecione abaixo o período para impressão da Lista de presença
+            </h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <%= form_tag(portal_subscription_event_report_list_presence_pt_path(@event, format: :pdf), method: "get", target: "_blank") do %>
+              <%= hidden_field_tag :event_id, @event.id %>
+              <div class="mb-3">
+                <label for="" class="form-label">Evento:</label>
+                <strong class="text-black"><%= @event.name %></strong>
+              </div>
+              <div class="mb-3">
+                <label for="event_date" class="form-label">Dia do Evento:</label>
+                <%= date_field_tag :event_date, nil, class: "form-control", required: true %>
+              </div>
+              <div class="mb-3">
+                <label for="start_time" class="form-label">Horário Inicial:</label>
+                <%= time_field_tag :start_time, nil, class: "form-control", required: true %>
+              </div>
+              <div class="mb-3">
+                <label for="end_time" class="form-label">Horário Final:</label>
+                <%= time_field_tag :end_time, nil, class: "form-control", required: true %>
+              </div>
+              <%= submit_tag "Gerar Lista de Presença", class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="card-body p-4">
     <div class="table-responsive mb-4">

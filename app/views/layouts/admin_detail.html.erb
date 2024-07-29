@@ -44,10 +44,6 @@
                   <span><i class="ti ti-ticket"></i></span>
                   <span class="hide-menu">Eventos</span>
                 <% end %>
-                <%= link_to 'Teste', class: 'sidebar-link', data: { bs_toggle: "modal", bs_target: "#reportListPresence" } do %>
-                  <i class="fs-4 ti ti-printer"></i>
-                  <span class="hide-menu">Relatório Lista de Presença</span>
-                <% end %>
               </li>
             </ul>
           </nav>
@@ -224,35 +220,6 @@
             <label class="btn p-9 btn-outline-primary" for="card-without-border">
               <i class="icon ti ti-border-none fs-7 me-2"></i>Shadow </label>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="reportListPresence" class="modal fade" tabindex="-1" aria-labelledby="reportListPresence" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-      <div class="modal-content">
-        <div class="modal-header d-flex align-items-center">
-          <h4 class="modal-title" id="filterUserLabel">
-            Selecione abaixo o período para impressão da Lista de presença
-          </h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <%= form_tag(report_list_presence_portal_users_pt_path(format: :pdf), method: "get", target: "_blank") do %>
-            <div class="mb-3">
-              <label for="event_date" class="form-label">Dia do Evento:</label>
-              <%= date_field_tag :event_date, nil, class: "form-control", required: true %>
-            </div>
-            <div class="mb-3">
-              <label for="start_time" class="form-label">Horário Inicial:</label>
-              <%= time_field_tag :start_time, nil, class: "form-control", required: true %>
-            </div>
-            <div class="mb-3">
-              <label for="end_time" class="form-label">Horário Final:</label>
-              <%= time_field_tag :end_time, nil, class: "form-control", required: true %>
-            </div>
-            <%= submit_tag "Gerar Lista de Presença", class: "btn btn-primary" %>
-          <% end %>
         </div>
       </div>
     </div>

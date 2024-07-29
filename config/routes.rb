@@ -26,7 +26,6 @@ Rails.application.routes.draw do
         collection do
           get :report_participants
           get :report_id_paper
-          get :report_list_presence
           match 'search_user' => 'home#home', via: %i[get post], as: :search_user
         end
       end
@@ -40,6 +39,7 @@ Rails.application.routes.draw do
       resources :subscription_events do
         get :voucher
         get :award
+        get :report_list_presence
 
         collection do
           match 'search_subscription_event' => 'subscription_events#subscription_event', via: %i[get post], as: :search_subscription_event
