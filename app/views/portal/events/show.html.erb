@@ -25,7 +25,7 @@
                     </span>
                   <% end %>&nbsp;&nbsp;
                   <div class="p-2" style="color: white; font-size: 20px;">
-                    <i class="fa fa-calendar"></i> <%= @event.start_event_day.strftime('%d') %> a <%= @event.end_event_day.strftime('%d') %> de <%= I18n.t('date.month_names')[@event.end_event_day.strftime('%m').to_i - 1] %> - <%= I18n.t("days_weekend.#{@event.start_event_day.strftime('%A').downcase}") %> a <%= I18n.t("days_weekend.#{@event.end_event_day.strftime('%A').downcase}") %>
+                    <i class="fa fa-calendar"></i> <%= @event.start_event_day.strftime('%d') %> a <%= @event.end_event_day.strftime('%d') %> de <%= I18n.t('date.month_names')[@event.end_event_day.strftime('%m').to_i - 1] %> - <%= I18n.t("days_weekend.#{@event.start_event_day.strftime('%A').downcase}") %> a <%= I18n.t("days_weekend.#{@event.end_event_day.strftime('%A').downcase} feira") %>
                   </div>
                   <span class="svg-icon" id="slider-btn01" data-svg-icon="../../assets/img/icons/btn-arrow.svg"></span>
                 </div>

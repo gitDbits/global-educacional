@@ -24,7 +24,7 @@
                 <span>
                   <strong>Inscrições abertas</strong>
                   <div class="p-2">
-                    <i class="fa fa-calendar"></i> <%= event.start_event_day.strftime('%d') %> e <%= event.end_event_day.strftime('%d') %> de <%= I18n.t('date.month_names')[event.end_event_day.strftime('%m').to_i - 1] %> de <%= event.end_event_day.strftime('%Y') %> - <%= I18n.t("days_weekend.#{event.start_event_day.strftime('%A').downcase}") %> e <%= I18n.t("days_weekend.#{event.end_event_day.strftime('%A').downcase}") %>
+                    <i class="fa fa-calendar"></i> <%= event.start_event_day.strftime('%d') %> a <%= event.end_event_day.strftime('%d') %> de <%= I18n.t('date.month_names')[event.end_event_day.strftime('%m').to_i - 1] %> de <%= event.end_event_day.strftime('%Y') %> - <%= I18n.t("days_weekend.#{event.start_event_day.strftime('%A').downcase}") %> a <%= I18n.t("days_weekend.#{event.end_event_day.strftime('%A').downcase} feira") %>
                   </div>
                 </span>
               </div>
